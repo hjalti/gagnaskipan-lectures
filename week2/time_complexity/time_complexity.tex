@@ -1,0 +1,187 @@
+\documentclass[11pt]{beamer}
+
+% This file is a solution template for:
+
+% - Talk at a conference/colloquium.
+% - Talk length is about 20min.
+% - Style is ornate.
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice.
+
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % or ...
+
+  % \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+
+\usepackage[icelandic]{babel}
+% or whatever
+\selectlanguage{icelandic}
+
+\usepackage[latin1]{inputenc}
+% or whatever
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{semantic}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage[normalem]{ulem}
+\usepackage{booktabs}
+\usepackage{beamerarticle}
+
+\newcommand{\perm}{{\mathfrak S}}
+\newcommand{\clpreim}{\texttt{ClassicalPreim}}
+\newcommand{\meshpreim}{\texttt{MeshPreim}}
+\renewcommand{\epsilon}{\varepsilon}
+
+\DeclareMathOperator{\Av}{Av}
+
+\title{Tímaflækja}
+\subtitle{Gagnaskipan 2014}
+%{Include Only If Paper Has a Subtitle}
+
+\author[Hjalti]{Hjalti Magnússon (\href{mailto:hjaltim@ru.is}{hjaltim@ru.is})}
+
+%\author[Hjalti \and Henning] {Hjalti Magnússon \and Henning Arnór Úlfarsson}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[Reykjavík University] % (optional, but mostly needed)
+{
+  \includegraphics[height=2cm]{rulogo}
+}
+
+\date{\today}
+% - Either use conference name or its abbreviation.
+% - Not really informative to the audience, more for people (including
+%   yourself) who are reading the slides online
+
+%\subject{Computer Science}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+%\pgfdeclareimage[height=1.5cm]{university-logo}{rulogo.PNG}
+%\logo{\pgfuseimage{university-logo}}
+
+%\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+%\setbeamerfont{itemize/enumerate subsubbody}{size=\small}
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Yfirlit}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\DeclareMathOperator{\id}{id}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Afköst}
+  \begin{itemize}
+    \item Hvernig mælum við afköst reiknirita?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Kröfur}
+  Mælingin þarf að vera óháð
+  \begin{itemize}
+    \item Tiltekinni útfærslu
+    \item Tilteknum vélbúnaði
+    \item Tilteknum gögnum
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Niðurstaðan}
+  \begin{itemize}
+    \item Mælum fjölda aðgerða (e. operations)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Big-O}
+  \begin{itemize}
+    \item Lýsir því hvernig föll hegða sér "`á endanum"'
+    \item Metum fjölda aðgerða miðað við stærð inntaks
+    \item Hundsum fasta og litla liði
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Big-O}
+  \includegraphics[width=\textwidth]{big-o-complexity}
+\end{frame}
+
+\begin{frame}{Hvernig vaxa þessi föll?}
+  \begin{center}
+    \begin{tabular}{l|rrrrrr}
+        \textbf{Fall \textbackslash} $n$ & 10 & 100 & 1.000 & 10.000 & 100.000 & 1.000.000 \\
+        \hline
+        $1$ & $1$ & $1$ & $1$ & $1$ & $1$ & $1$ \\
+        $\log_2(n)$ & 3 & 6 & 9 & 13 & 16 & 19 \\
+        $n$ & 10 & $10^2$ & $10^3$ & $10^4$ & $10^5$ & $10^6$ \\
+        $n \log_2(n)$ & $30$ & $664$ & $10^4$ & $10^5$ & $10^6$ & $10^7$ \\
+        $n^2$ & $10^2$ & $10^4$ & $10^6$ & $10^8$ & $10^{10}$ & $10^{12}$ \\
+        $n^3$ & $10^3$ & $10^6$ & $10^9$ & $10^{12}$ & $10^{15}$ & $10^{18}$ \\
+        $2^n$ & $10^3$ & $10^{30}$ & $10^{300}$ & $10^{3.000}$ & $10^{30.000}$ & $10^{300.000}$ \\
+        $n!$ & $10^6$ & $10^{158}$ & $10^{2567}$ & $10^{36.000}$ & $10^{460.000}$ & $10^{5.600.000}$ \\
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Af hverju þurfum við að hugsa út í þetta?}
+  \begin{center}
+    \begin{tabular}{l|rrrrrr}
+        \textbf{Fall \textbackslash} $n$ & $10$ & $10^2$ & $10^3$ & $10^4$ & $10^5$ & $10^6$ \\
+        \hline
+        $1$           & < 1 s & < 1 s & < 1 s & < 1 s & < 1 s & < 1 s\\
+        $\log_2(n)$   & < 1 s & < 1 s & < 1 s & < 1 s & < 1 s & < 1 s\\
+        $n$           & < 1 s & < 1 s & < 1 s & < 1 s & < 1 s & < 1 s\\
+        $n \log_2(n)$ & < 1 s & < 1 s & < 1 s & < 1 s & < 1 s & < 1 s\\
+        $n^2$         & < 1 s & < 1 s & < 1 s & < 1 s & 10 s & 16 m\\
+        $n^3$         & < 1 s & < 1 s & 1 s & 16 m & 12 d & 31 y\\
+        $2^n$         & < 1 s & $10^{13} y$ & $10^{283}$ y & \ldots & \ldots & \ldots\\
+        $n!$          & < 1 s & $10^{141} y$ & \ldots & \ldots & \ldots & \ldots\\
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+\end{document}
+
