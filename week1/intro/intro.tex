@@ -1,0 +1,386 @@
+\documentclass[11pt]{beamer}
+
+% This file is a solution template for:
+
+% - Talk at a conference/colloquium.
+% - Talk length is about 20min.
+% - Style is ornate.
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice.
+
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % or ...
+
+  % \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+
+\usepackage[icelandic]{babel}
+% or whatever
+\selectlanguage{icelandic}
+
+\usepackage[latin1]{inputenc}
+% or whatever
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{semantic}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage[normalem]{ulem}
+\usepackage{booktabs}
+\usepackage{beamerarticle}
+
+\newcommand{\perm}{{\mathfrak S}}
+\newcommand{\clpreim}{\texttt{ClassicalPreim}}
+\newcommand{\meshpreim}{\texttt{MeshPreim}}
+\renewcommand{\epsilon}{\varepsilon}
+
+\DeclareMathOperator{\Av}{Av}
+
+\title{Kynning á námskeiði}
+\subtitle{Gagnaskipan 2014}
+%{Include Only If Paper Has a Subtitle}
+
+\author[Hjalti]{Hjalti Magnússon (\href{mailto:hjaltim@ru.is}{hjaltim@ru.is})}
+
+%\author[Hjalti \and Henning] {Hjalti Magnússon \and Henning Arnór Úlfarsson}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[Reykjavík University] % (optional, but mostly needed)
+{
+  \includegraphics[height=2cm]{rulogo}
+}
+
+\date{{\today}}
+% - Either use conference name or its abbreviation.
+% - Not really informative to the audience, more for people (including
+%   yourself) who are reading the slides online
+
+%\subject{Computer Science}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+%\pgfdeclareimage[height=1.5cm]{university-logo}{rulogo.PNG}
+%\logo{\pgfuseimage{university-logo}}
+
+%\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+%\setbeamerfont{itemize/enumerate subsubbody}{size=\small}
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Yfirlit}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\DeclareMathOperator{\id}{id}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Yfirlit}
+  \tableofcontents
+  %% You might wish to add the option [pausesections]
+\end{frame}
+
+\section{Almennt}
+
+\begin{frame}{Aðalkennari}
+  \begin{itemize}
+    \item Hjalti Magnússon (\href{malto:hjaltim@ru.is}{hjaltim@ru.is})
+      \begin{itemize}
+        \item Skrifstofa: 2. hæð í Úranusi (Ú211)
+        \item Viðtalstímar: Eftir samkomulagi
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lýsing}
+  Efni námskeiðsins er í grófum dráttum
+  \begin{itemize}
+    \item Gagnaskipan
+      \begin{itemize}
+        \item Tengdir listar (linked lists), biðraðir (queues), staflar (stacks), tré (trees), tætitöflur (hash tables)
+      \end{itemize}
+
+    \item Flækjustig (time complexity) reiknirita
+
+    \item Endurkvæm forritun
+
+    \item Hugræn gagnatög og hlutbundin forritun
+      \begin{itemize}
+        \item Erfðir, fjölbinding
+      \end{itemize}
+  \end{itemize}
+  Notast er við C++
+\end{frame}
+
+\begin{frame}{Hæfniviðmið og kennsluáætlun}
+  \href{https://myschool.ru.is/myschool/?Page=LMS&ID=2&FagID=25768&View=21&ViewMode=0&Tab=0}{Hæfniviðmiðin} og \href{https://myschool.ru.is/myschool/?Page=LMS&ID=6&FagID=25768&View=26&ViewMode=0&Tab=0}{kennsluáætlun} má finna {Myschool}
+\end{frame}
+
+\begin{frame}{Kennsluefni}
+  \begin{columns}[c]
+    \begin{column}{0.6\textwidth}
+      \begin{itemize}
+        \item Problem Solving with C++
+          \begin{itemize}
+            \item Höfundur: Walter Savitch
+            \item 8. útgáfa
+            \item Sama bók og í Forritun
+          \end{itemize}
+        \item Lesefni um gagnaskipan
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{0.4\textwidth}
+      \includegraphics[width=0.7\textwidth]{savitch}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Þróunarumhverfi}
+  \begin{itemize}
+    \item Ykkur er frjálst að nota hvaða þróunarumhverfi og hvaða þýðanda sem er
+    \item Ég mun nota CodeBlocks í fyrirlestrum
+    \item Mooshak notar GNU C++ þýðandann g++
+      \begin{itemize}
+        \item Mooshak setur "`flaggið"' \texttt{-Wall} á g++
+        \item Kveikir á öllum "`warnings"'
+        \item Ég mæli með því að þið gerið það sama
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\section{Kennsla}
+
+\begin{frame}{Kennsluaðferð}
+  \begin{itemize}
+    \item Stuttir fyrirlestrar á Myschool
+      \begin{itemize}
+        \item Fræðileg kynning á efninu
+      \end{itemize}
+    \item Tveir tvöfaldir ($2 \cdot 45$ mínútur) fyrirlestrar á viku
+      \begin{itemize}
+        \item "`Hands-on"' yfirferð á efninu
+        \item Hugtök útskýrð með dæmum
+      \end{itemize}
+    \item Fyrirlestur fluttur í M101
+      \begin{itemize}
+        \item Streymt yfir í V101 og V102 og á Youtube (Google+)
+        \item Hægt að spyrja spurninga (með Piazza)
+      \end{itemize}
+    \item Áhersla á verkefnavinnu
+    \item Öll verkefni eru einstaklingsverkefni
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Aðstoð við verkefni}
+  \begin{itemize}
+    \item Opnir dæmatímar tvisvar í viku (fyrir staðarnám, HMV og fjarnema sem hafa áhuga)
+      \begin{itemize}
+        \item Byrja á miðvikudaginn
+      \end{itemize}
+    \item Fjarfundir fyrir fjarnema
+    \item Piazza
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Af hverju Piazza?}
+  \begin{itemize}
+    \item Sniðið að kennslu
+    \item Skipulag á spurningum og svörum
+    \item Hægt er að spyrja nafnlausra spurninga
+    \item Hægt að spyrja leiðbeinendur og kennara eingöngu
+    \item Hægt að setja kóða inn með þægilegu sniði
+    \item Facebook-hópur er einnig stofnaður, en ég tryggi engin svör þar
+  \end{itemize}
+\end{frame}
+
+\section{Námsmat}
+
+\begin{frame}{Verkefni}
+  \begin{itemize}
+    \item Skilaverkefni (25\%)
+      \begin{itemize}
+        \item Fimm stærri skilaverkefni yfir önnina
+        \item Hvert gildir 5\%
+      \end{itemize}
+    \item Dæmatímaverkefni (10\%)
+      \begin{itemize}
+        \item 11 minni verkefni yfir önnina
+        \item 8 bestu af 11 gilda til einkunnar
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Lokapróf}
+  \begin{itemize}
+    \item Gildir 65\% af lokaeinkunn
+    \item Mun að öllum líkindum vera bæði rafrænt og skriflegt
+    \item Skriflega prófið verður líklegast seint á önninni
+    \item Ná þarf að lágmarki 5,0 í báðum hlutum prófsins til að standast prófið
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Aukaverkefni}
+  \begin{itemize}
+    \item Aukaverkefni sem má vinna hvenær sem er yfir önnina
+    \item Lítil aukaverkefni
+      \begin{itemize}
+        \item Svipuð dæmatímaverkefnum
+        \item Gilda til hækkunar á verkefnaeinkunn
+        \item Geta hækkað verkefnaeinkunn um allt að 5\%
+      \end{itemize}
+    \item Stórt aukaverkefni
+      \begin{itemize}
+        \item Getur komið í stað eins skilaverkefnis
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Verkefnaskil}
+  \begin{itemize}
+    \item Skilaverkefni
+      \begin{itemize}
+        \item Skilafrestur er kl. 23:59 á mánudögum í viku 4, 6, 8, 10 og 12
+      \end{itemize}
+    \item Dæmatímaverkefni
+      \begin{itemize}
+        \item Lögð fyrir á mánudögum
+        \item Skilafrestur er kl. 23:59 á fimmtudögum
+          \begin{itemize}
+            \item Undandtekning: Í þessari viku er skilafresturinn á sunnudag
+          \end{itemize}
+        \item Ekki dæmatímaverkefni í síðustu viku
+      \end{itemize}
+    \item Aukaverkefni
+      \begin{itemize}
+        \item Lögð fyrir reglulega yfir önnina
+        \item Skilafrestur er fram til lokaprófs
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Verkefnaskil}
+  \begin{itemize}
+    \item Öllum verkefnum á að skila fyrir 23:59 á skiladegi
+    \item Einkunn lækkar um einn heilan fyrir hvern dag sem skilað er of seint
+    \item Helgardagar og frídagar eru meðtaldir
+    \item Ekki er tekið við verkefnum sem skilað er meira en tveimur dögum of seint
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Mooshak}
+  \begin{itemize}
+    \item \textbf{Öllum verkefnum námskeiðsins þarf að skila inn á Mooshak}
+    \item Að auki verður farið yfir sum verkefni í höndunum
+    \item Vægi Mooshak og yfirferðar dæmatímakennara (ef við á) kemur fram á verkefnum
+    \item Aðeins verður farið yfir þau verkefni sem skilað er inn á Mooshak og þýðast
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Reglur um notkun Mooshak}
+  \begin{itemize}
+    \item Lausn sem send er inn á Mooshak telst vera hugverk þess sem sendir hana inn
+    \item Þið megið aðeins senda inn kóða sem þið skrifið sjálf (fyrir utan grunnskjöl sem fylgja verkefnum)
+    \item Ekki má nota Mooshak til að "`prófa"' kóða af netinu eða kóða frá samnemendum
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Utanaðkomandi aðstoð}
+  \begin{itemize}
+    \item Að afrita lausn sem þið finnið á netinu, eða fáið frá samnemanda, og skila inn sem eigin lausn er \textbf{ritstuldur}
+    \item Það er brot á Siðareglum HR (\url{http://www.ru.is/haskolinn/sidareglur-hr/})
+      \begin{itemize}
+        \item "`Við virðum hugverkaréttindi, eignum okkur ekki heiðurinn af hugmyndum annarra, og getum ávallt þeirra heimilda sem við notum, í samræmi við venjur vísindasamfélagsins."'
+      \end{itemize}
+    \item "`Google your work, not the problem"'
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Viðurlög við brotum}
+  \begin{itemize}
+    \item Skólinn lítur brot á Náms- og prófareglum alvarlegum augum
+      \begin{itemize}
+        \item Fyrsta brot: 0 fyrir verkefni
+        \item Annað brot: 0 fyrir námskeið
+        \item Þriðja brot: Brottrekstur úr skóla
+      \end{itemize}
+    \item Fyrirgerið rétti til skiptináms
+    \item Fáið ekki að koma fram fyrir hönd skólans
+  \end{itemize}
+\end{frame}
+
+\section{Að lokum}
+
+\begin{frame}{Hvað er gagnaskipan?}
+  \begin{itemize}
+    \item Gagnaskipan (data structure) er ákveðin leið til að geyma gögn og skipuleggja framsetningu þeirra
+    \item Dæmi um einföld gagnaskipan sem þið hafið séð
+      \begin{itemize}
+        \item Fylki
+        \item Struct
+        \item Klasar
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Af hverju gagnaskipan?}
+  \begin{itemize}
+    \item Sem tölvunarfræðingar erum við alltaf að vinna með gögn
+      \begin{itemize}
+        \item Magn gagna í heiminum eykst stöðugt
+        \item Google veit af 30 billjón vefsíðum (30.000.000.000.000)
+      \end{itemize}
+    \item Þurfum að þekkja kosti, galla og sklivirkni ýmissa framsetninga gagna
+    \item Í leiðinni bætum við forritunarþekkingu
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Í dag}
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{xkcd}
+  \end{center}
+\end{frame}
+
+
+\end{document}
