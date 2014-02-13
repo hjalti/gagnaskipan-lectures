@@ -1,0 +1,18 @@
+Results from running the different implementations of IntSet on the same tests
+with 100.000 insertions and 1.000.000 queries (i.e., contains).
+
+
+set_array.cpp
+0.10user 0.00system 0:00.11elapsed 98%CPU (0avgtext+0avgdata 59612maxresident)k
+
+set_binary_search_vector.cpp
+0.44user 0.00system 0:00.44elapsed 99%CPU (0avgtext+0avgdata 1732maxresident)k
+
+set_list.cpp
+962.61user 0.00system 16:02.93elapsed 99%CPU (0avgtext+0avgdata 4332maxresident)k
+
+set_ordered_vector.cpp
+16.87user 0.00system 0:16.88elapsed 99%CPU (0avgtext+0avgdata 1732maxresident)k
+
+set_vector.cpp
+482.30user 0.00system 8:02.46elapsed 99%CPU (0avgtext+0avgdata 1732maxresident)k

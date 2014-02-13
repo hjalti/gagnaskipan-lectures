@@ -1,5 +1,5 @@
 #include <iostream>
-#include <list>
+#include <vector>
 #include <cstdlib>
 
 using namespace std;
@@ -8,7 +8,9 @@ class IntSet
 {
     public:
         // Contstructs a new set
-        IntSet();
+        IntSet(int max_capacity);
+
+        ~IntSet();
 
         // Returns the number of (distinct) elements in the set.
         int size();
@@ -26,36 +28,45 @@ class IntSet
         void remove(int item);
 
     private:
-        list<int> lis;
+        bool *array;
+        int count;
 };
 
 
-IntSet::IntSet() { }
+IntSet::IntSet(int max_capacity)
+{
+    count = 0;
+    array = new bool[max_capacity];
+
+    for(int i = 0; i < max_capacity; i++)
+    {
+        array[i] = false;
+    }
+}
+
+IntSet::~IntSet()
+{
+    delete [] array;
+}
 
 int IntSet::size()
 {
-    return lis.size();
+    return count;
 }
-
 
 bool IntSet::contains(int item)
 {
-    for(list<int>::iterator it = lis.begin(); it != lis.end(); ++it) {
-        if(*it == item) {
-            return true;
-        }
-    }
-    return false;
+    return array[item];
 }
 
 void IntSet::insert(int item)
 {
-    lis.push_back(item);
+    array[item] = true;
 }
 
 void IntSet::remove(int item)
 {
-    lis.remove(item);
+    array[item] = false;
 }
 
 
@@ -63,7 +74,7 @@ int main()
 {
     srand(1337);
 
-    IntSet s;
+    IntSet s(60000000);
     for(int i = 0; i != 20; i++) {
         s.insert(rand() % 30);
     }

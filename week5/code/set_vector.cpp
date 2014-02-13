@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cstdlib>
 
 using namespace std;
 
@@ -61,8 +62,7 @@ void IntSet::insert(int item)
 void IntSet::remove(int item)
 {
     int ind = index(item);
-    while(ind != -1)
-    {
+    while(ind != -1) {
         vec.erase(vec.begin() + ind);
         ind = index(item);
     }
@@ -71,9 +71,11 @@ void IntSet::remove(int item)
 
 int main()
 {
+    srand(1337);
+
     IntSet s;
-    for(int i = 0; i != 10; i++) {
-        s.insert(i * 1337 % 29);
+    for(int i = 0; i != 20; i++) {
+        s.insert(rand() % 30);
     }
 
     for(int i = 0; i != 30; i++) {
@@ -89,13 +91,12 @@ int main()
     }
 
     for(int i = 0; i != 100000; i++) {
-        s.insert(i * 1337 % 55789127);
+        s.insert(rand() % 55789127);
     }
 
     cout << "Done inserting" << endl;
 
-    for(int i = 0; i != 1000000; i++)
-    {
+    for(int i = 0; i != 1000000; i++) {
         s.contains(i);
     }
 }
