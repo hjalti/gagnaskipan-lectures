@@ -1,0 +1,133 @@
+\documentclass[11pt]{beamer}
+
+% This file is a solution template for:
+
+% - Talk at a conference/colloquium.
+% - Talk length is about 20min.
+% - Style is ornate.
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice.
+
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % or ...
+
+  % \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+
+\usepackage[icelandic]{babel}
+% or whatever
+\selectlanguage{icelandic}
+
+\usepackage[latin1]{inputenc}
+% or whatever
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage[normalem]{ulem}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+\newcommand{\perm}{{\mathfrak S}}
+\newcommand{\clpreim}{\texttt{ClassicalPreim}}
+\newcommand{\meshpreim}{\texttt{MeshPreim}}
+\renewcommand{\epsilon}{\varepsilon}
+
+\DeclareMathOperator{\Av}{Av}
+
+\title{Sets and maps}
+\subtitle{Gagnaskipan 2014}
+%{Include Only If Paper Has a Subtitle}
+
+\author[Hjalti]{Hjalti Magnússon (\href{mailto:hjaltim@ru.is}{hjaltim@ru.is})}
+
+%\author[Hjalti \and Henning] {Hjalti Magnússon \and Henning Arnór Úlfarsson}
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[Reykjavík University] % (optional, but mostly needed)
+{
+  \includegraphics[height=2cm]{rulogo}
+}
+
+\date{\today}
+% - Either use conference name or its abbreviation.
+% - Not really informative to the audience, more for people (including
+%   yourself) who are reading the slides online
+
+%\subject{Computer Science}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+%\pgfdeclareimage[height=1.5cm]{university-logo}{rulogo.PNG}
+%\logo{\pgfuseimage{university-logo}}
+
+%\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+%\setbeamerfont{itemize/enumerate subsubbody}{size=\small}
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Yfirlit}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\DeclareMathOperator{\id}{id}
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Implementations of set}
+    \begin{table}
+        \centering
+        \begin{tabular}{lccc}
+            \textbf{Method}     & \textbf{Contains}     & \textbf{Insert} & \textbf{Remove} \\
+            Indexed array       & $O(1)$                & $O(1)$          & $O(1)$ \\
+            Unordered vector    & $O(n)$                & $O(1)$          & $O(n)$ \\
+            Unordered list      & $O(n)$                & $O(1)$          & $O(n)$ \\
+            Ordered list        & $O(n)$                & $O(n)$          & $O(n)$ \\
+            Binary search       & $O(\log(n))$          & $O(n)$          & $O(n)$ \\
+            BST (Average)       & $O(\log(n))$          & $O(\log(n))$    & $O(\log(n))$ \\
+            BST (WC)            & $O(n)$                & $O(n)$          & $O(n)$
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+
+\end{document}
+
