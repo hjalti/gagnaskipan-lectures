@@ -112,14 +112,15 @@ void IntSet::insert(int item)
 
 void IntSet::insert(NodePtr& node, int item)
 {
-    if(node == NULL) {
+    if(node == NULL || node->data == item) {
         node = new TreeNode(item);
         return;
     }
     if(item < node->data) {
-        return insert(node->left, item);
+        insert(node->left, item);
+    } else {
+        insert(node->right, item);
     }
-    return insert(node->right, item);
 }
 
 void IntSet::remove(int item)
