@@ -2,20 +2,21 @@
 #include <vector>
 #include <cstdlib>
 #include <cassert>
-#include <climits>
 
 using namespace std;
 
+typedef int ValueType;
+
 struct TreeNode
 {
-    TreeNode(int data, TreeNode *left = NULL, TreeNode *right = NULL);
+    TreeNode(ValueType data, TreeNode *left = NULL, TreeNode *right = NULL);
 
-    int data;
+    ValueType data;
     TreeNode *left;
     TreeNode *right;
 };
 
-TreeNode::TreeNode(int data, TreeNode *left, TreeNode *right)
+TreeNode::TreeNode(ValueType data, TreeNode *left, TreeNode *right)
 {
     this->data = data;
     this->left = left;
@@ -24,13 +25,13 @@ TreeNode::TreeNode(int data, TreeNode *left, TreeNode *right)
 
 typedef TreeNode* NodePtr;
 
-class IntSet
+class Set
 {
     public:
         // Contstructs a new set
-        IntSet();
+        Set();
 
-        ~IntSet();
+        ~Set();
 
         // Returns the number of (distinct) elements in the set.
         int size();
@@ -38,49 +39,41 @@ class IntSet
         bool empty();
 
         // Returns true if and only if the set contains 'item'.
-        bool contains(int item);
+        bool contains(ValueType item);
 
         // Inserts 'item' into the set.
         // If 'item' is already a member of the set, this operation has no
         // effect.
-        void insert(int item);
+        void insert(ValueType tem);
 
         // Removes 'item' from the set.
         // If 'item' is not a member of the set, this operation has no effect.
-        void remove(int item);
-
-        // Returns the smallest element of the set.
-        // Returns INT_MIN if set is empty.
-        int min();
-
-        friend ostream& operator<< (ostream& outs, IntSet set);
+        void remove(ValueType item);
 
     private:
         NodePtr root;
 
         int size(NodePtr node);
-        int min(NodePtr node);
-        bool contains(NodePtr node, int item);
-        void insert(NodePtr& node, int item);
-        void print_inorder(ostream& outs,  NodePtr& node);
+        bool contains(NodePtr node, ValueType item);
+        void insert(NodePtr& node, ValueType item);
 };
 
-IntSet::IntSet()
+Set::Set()
 {
     root = NULL;
 }
 
-IntSet::~IntSet()
+Set::~Set()
 {
     //Important!
 }
 
-int IntSet::size()
+int Set::size()
 {
     return size(root);
 }
 
-int IntSet::size(NodePtr node)
+int Set::size(NodePtr node)
 {
     if(node == NULL) {
         return 0;
@@ -88,18 +81,19 @@ int IntSet::size(NodePtr node)
     return size(node->left) + size(node->right);
 }
 
-bool IntSet::empty()
+bool Set::empty()
 {
     return root == NULL;
 }
 
 
-bool IntSet::contains(int item)
+bool Set::contains(ValueType item)
+
 {
     return contains(root, item);
 }
 
-bool IntSet::contains(NodePtr node, int item)
+bool Set::contains(NodePtr node, ValueType item)
 {
     if(node == NULL) {
         return false;
@@ -114,65 +108,34 @@ bool IntSet::contains(NodePtr node, int item)
 
 }
 
-void IntSet::insert(int item)
+void Set::insert(ValueType item)
 {
     insert(root, item);
 }
 
-void IntSet::insert(NodePtr& node, int item)
+void Set::insert(NodePtr& node, ValueType item)
 {
-    if(node == NULL || node->data == item) {
+    if(node == NULL) {
         node = new TreeNode(item);
         return;
     }
     if(item < node->data) {
-        insert(node->left, item);
-    } else {
-        insert(node->right, item);
+        return insert(node->left, item);
     }
+    return insert(node->right, item);
 }
 
-void IntSet::remove(int item)
+void Set::remove(ValueType item)
 {
     //TODO
 }
 
-int IntSet::min()
-{
-    return min(root);
-}
-
-int IntSet::min(NodePtr node)
-{
-    if(node== NULL) {
-        return INT_MIN;
-    }
-    if(node->left == NULL) {
-        return node->data;
-    }
-    return min(node->left);
-}
-
-void IntSet::print_inorder(ostream& outs, NodePtr& node)
-{
-    if(node != NULL) {
-        print_inorder(outs, node->left);
-        outs << node->data << " ";
-        print_inorder(outs, node->right);
-    }
-}
-
-ostream& operator<< (ostream& outs, IntSet set)
-{
-    set.print_inorder(outs, set.root);
-    return outs;
-}
 
 int main()
 {
-    srand(137872);
+    srand(1337);
 
-    IntSet s;
+    Set s;
     for(int i = 0; i != 20; i++) {
         s.insert(rand() % 30);
     }
