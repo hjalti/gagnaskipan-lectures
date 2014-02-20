@@ -1,0 +1,5 @@
+#!/bin/sh
+
+g++ set_bst_fun.cpp
+./a.out > bst.dot
+dot -Nlabel="" -Tpng bst.dot -o bst.png
