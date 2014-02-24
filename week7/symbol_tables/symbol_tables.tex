@@ -1,0 +1,154 @@
+\documentclass[11pt]{beamer}
+
+% This file is a solution template for:
+
+% - Talk at a conference/colloquium.
+% - Talk length is about 20min.
+% - Style is ornate.
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice.
+
+
+\mode<presentation>
+{
+  \usetheme{Warsaw}
+  % or ...
+
+  % \setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+}
+
+
+\usepackage[icelandic]{babel}
+% or whatever
+\selectlanguage{icelandic}
+
+\usepackage[latin1]{inputenc}
+% or whatever
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage[normalem]{ulem}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{xcolor}
+
+\newcommand{\perm}{{\mathfrak S}}
+\newcommand{\clpreim}{\texttt{ClassicalPreim}}
+\newcommand{\meshpreim}{\texttt{MeshPreim}}
+\renewcommand{\epsilon}{\varepsilon}
+
+\DeclareMathOperator{\Av}{Av}
+
+\title{Symbol Tables}
+\subtitle{Gagnaskipan 2014}
+
+\author[Hjalti]{Hjalti Magnússon (\href{mailto:hjaltim@ru.is}{hjaltim@ru.is})}
+
+\institute[Reykjavík University] % (optional, but mostly needed)
+{
+  \includegraphics[height=2cm]{rulogo}
+}
+
+\date{\today}
+
+\AtBeginSection[]
+{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+  \begin{frame}<beamer>{Yfirlit}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+
+\DeclareMathOperator{\id}{id}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Searching}
+    \begin{itemize}
+        \item Important on many levels of CS
+        \item Search by keys
+            \begin{itemize}
+                \item Dictionary
+                \item Phone book
+                \item Search engine
+                \item Database
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Symbol Table}
+    \begin{itemize}
+        \item Aka \emph{map}, \emph{dictionary}, \emph{associative array}
+        \item A set of $(\mathrm{key}, \mathrm{value})$ pairs
+        \item Operations
+            \begin{itemize}
+                \item Add a new pair
+                \item Return an item with a given key
+            \end{itemize}
+        \item Alternatively: An array (or vector) that can be indexed by anything
+%         \item Alternatively: Mathematical concept of map
+%             \begin{itemize}
+%                 \item Possible keys form the domain of the map
+%                 \item Values form the image (codomain) of the map
+%             \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Implementations}
+    \begin{itemize}
+        \item Array indexed by key
+        \item Vector of pairs
+        \item List of pairs
+        \item Sorted vector of pairs
+        \item Binary Search Tree
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Implementations of symbol table}
+    \begin{table}
+        \centering
+        \begin{tabular}{lccc}
+            \textbf{Method}     & \textbf{Get}     & \textbf{Add} & \textbf{Remove} \\
+            \color<2>{red}{Key-indexed array}   & \color<2>{red}{$O(1)$}                & \color<2>{red}{$O(1)$}         & \color<2>{red}{$O(1)$} \\
+            Unordered vector    & $O(n)$                & $O(1)$          & $O(n)$ \\
+            Unordered list      & $O(n)$                & $O(1)$          & $O(n)$ \\
+            Ordered list        & $O(n)$                & $O(n)$          & $O(n)$ \\
+            Binary search       & $O(\log(n))$          & $O(n)$          & $O(n)$ \\
+            BST (Average)       & $O(\log(n))$          & $O(\log(n))$    & $O(\log(n))$ \\
+            BST (WC)            & $O(n)$                & $O(n)$          & $O(n)$
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}{Hashing}
+    \begin{definition}{Hash-function}
+        A function that maps data of variable length to data of fixed length.
+    \end{definition}
+    We want to turn a (long) sequence of bits into a fixed length sequence of bits
+\end{frame}
+
+\end{document}
+
