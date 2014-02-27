@@ -28,7 +28,6 @@
   % or whatever (possibly just delete it)
 }
 
-
 \usepackage[icelandic]{babel}
 % or whatever
 \selectlanguage{icelandic}
@@ -44,6 +43,7 @@
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{xcolor}
+\usepackage{listings}
 
 \newcommand{\perm}{{\mathfrak S}}
 \newcommand{\clpreim}{\texttt{ClassicalPreim}}
@@ -52,7 +52,18 @@
 
 \DeclareMathOperator{\Av}{Av}
 
-\title{Symbol Tables}
+\lstset{ language=C++,
+    basicstyle = \small \ttfamily,
+    keywordstyle = \color{blue},
+    stringstyle = \color{red},
+    commentstyle = \color{green},
+    showstringspaces = false,
+    tabsize = 3,
+    frame = single
+}
+
+
+\title{Symbol Tables and hashing}
 \subtitle{Gagnaskipan 2014}
 
 \author[Hjalti]{Hjalti Magnússon (\href{mailto:hjaltim@ru.is}{hjaltim@ru.is})}
@@ -143,11 +154,180 @@
     \end{table}
 \end{frame}
 
+\begin{frame}{Hashing -- The major players}
+    \begin{itemize}
+        \item The \emph{universe} of elements, $U$
+            \begin{itemize}
+                \item The set of all integers ($2^{32}$)
+                \item The set of all floating point numbers ($\sim 2^{64}$)
+                \item Points in the integer lattice ($2^{64}$)
+                \item The set of all strings
+                    \begin{itemize}
+                        \item More strings of length 40 than there are atoms in the universe
+                    \end{itemize}
+            \end{itemize}
+        \item The \emph{hash function}, $h$
+            \begin{itemize}
+                \item Maps elements of $U$ to $M$ \emph{buckets}
+            \end{itemize}
+        \item The \emph{hash map} $H$ is an array of element from $U$ (indexed by integers)
+            \begin{itemize}
+                \item If $u \in U$, $h(u)$ gives the index of the element $u$ in $H$
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
 \begin{frame}{Hashing}
-    \begin{definition}{Hash-function}
-        A function that maps data of variable length to data of fixed length.
-    \end{definition}
-    We want to turn a (long) sequence of bits into a fixed length sequence of bits
+    \begin{block}{Hash function}
+        A hash function $h: U \to [0,M-1]$, is function that maps data of
+        variable length to data of fixed length.
+    \end{block}
+    \begin{block}{Hash function}
+        A function that turns a (long) sequence of bits into a fixed length sequence of bits.
+    \end{block}
+\end{frame}
+
+\begin{frame}{What is a good hash function?}
+    \begin{itemize}
+        \item Simplicity
+            \begin{itemize}
+                \item Lines of code (number of instructions)
+            \end{itemize}
+        \item Speed
+            \begin{itemize}
+                \item CPU benchmarks
+            \end{itemize}
+        \item Strength
+            \begin{itemize}
+                \item Hard to measure
+                \item Few \emph{collisions}
+                \item Good distribution
+                \item Avalanche condition
+            \end{itemize}
+        \item Security?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Hashing strings}
+    \begin{itemize}
+        \item All hashing can be reduced to hashing strings
+        \item Reduce a sequence of bytes (8-bit blocks) to 32 or 64 bits (possibly more).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Idea 1}
+    \begin{lstlisting}
+int hash(const char *str, int size) {
+    return size;
+}
+    \end{lstlisting}
+    \begin{itemize}
+        \item<2-> Not good!
+        \item<3-> Seriously, not good!
+        \item<4-> DO NOT USE!
+        \item<5> Once used by PHP
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Idea 2 -- LoseLose}
+    \begin{lstlisting}
+int hash(const char *str, int size) {
+    int hash = 0;
+    for(int i = 0; i < size; i++) {
+        hash += str[i];
+    }
+    return hash;
+}
+    \end{lstlisting}
+    \begin{itemize}
+        \item<2-> A little bit better
+        \item<3-> Still terrible
+        \item<4> Appeared in \emph{The C Programming Language}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Idea 3 -- djb2}
+    \begin{lstlisting}
+int hash(const char *str, int size) {
+    int hash = 5381;
+    for(int i = 0; i < size; i++) {
+        hash = hash * 33 + s[i];
+    }
+    return hash;
+}
+    \end{lstlisting}
+    $$
+        h(w_n \dotsc w_1) = 5381 \cdot 33^n + w_1 \cdot 33^{n-1} + w_2 \cdot 33^{n-2} + \dotsb + w_n
+    $$
+    \begin{itemize}
+        \item<2-> Created by Daniel J. Bernstein
+        \item<3-> Efficient
+        \item<4-> Used by Java and C\# until recently
+        \item<5> (Susceptible to attacks)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Modern hashes}
+    \begin{itemize}
+        \item MurmurHash
+            \begin{itemize}
+                \item Currently used by Java
+            \end{itemize}
+        \item lookup3
+        \item One-at-a-Time Hash
+        \item FNV
+        \item SuperFastHash
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{MurmurHash}
+    \begin{lstlisting}
+int MurmurHash2(char *str, int len, int seed) {
+    int m = 0x5bd1e995;
+    int r = 24; int h = seed ^ len;
+    while(len >= 4) { int k = *str;
+        k *= m; k ^= k >> r; k *= m;
+        h *= m; h ^= k; str += 4; len -= 4;
+    }
+    switch(len) {
+        case 3: h ^= data[2] << 16;
+        case 2: h ^= data[1] << 8;
+        case 1: h ^= data[0];
+                h *= m;
+    }
+    h ^= h >> 13; h *= m; h ^= h >> 15;
+    return h;
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Hash table}
+    \begin{itemize}
+        \item Create an array, $H$, of size $M$
+        \item $H$ is called a \emph{hash map}
+        \item Store $u \in U$ in position $h(u)$ in $A$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Collisions}
+    \begin{itemize}
+        \item A \emph{collision} is when
+            \begin{itemize}
+                \item $u,v \in U$,
+                \item $u \neq v$, and
+                \item $h(u) = h(v)$
+            \end{itemize}
+        \item Resolving collisions
+            \begin{itemize}
+                \item Open addressing
+                \item Chaining
+                \item Cuckoo hashing
+            \end{itemize}
+    \end{itemize}
 \end{frame}
 
 \end{document}
