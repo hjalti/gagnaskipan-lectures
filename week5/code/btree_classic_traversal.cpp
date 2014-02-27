@@ -59,8 +59,8 @@ void print_postfix(NodePtr tree)
     {
         return;
     }
-    print_infix(tree->left);
-    print_infix(tree->right);
+    print_postfix(tree->left);
+    print_postfix(tree->right);
     cout << tree->data << " ";
 
 }
@@ -72,8 +72,8 @@ void print_prefix(NodePtr tree)
         return;
     }
     cout << tree->data << " ";
-    print_infix(tree->left);
-    print_infix(tree->right);
+    print_prefix(tree->left);
+    print_prefix(tree->right);
 
 }
 
