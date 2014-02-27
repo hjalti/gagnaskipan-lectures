@@ -185,12 +185,7 @@ void StringIntMap::add(string key, int value)
 
 void StringIntMap::remove(string key)
 {
-    int pos = get_pos(key);
-    if(map[pos] != NULL) {
-        delete map[pos];
-        map[pos] = NULL;
-        count--;
-    }
+    // Hard B-)
 }
 
 int& StringIntMap::operator[] (string key)
