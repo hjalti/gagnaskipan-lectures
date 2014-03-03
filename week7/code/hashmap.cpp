@@ -58,6 +58,7 @@ class StringIntMap
         // Removes the value associated with the specified key.
         // or
         // Removes the pair with the specified key.
+        // NOT IMPLEMENTED
         void remove(string key);
 
         // Retrieves the item associated with the specified key.
@@ -185,7 +186,7 @@ void StringIntMap::add(string key, int value)
 
 void StringIntMap::remove(string key)
 {
-    // Hard B-)
+    // Nope
 }
 
 int& StringIntMap::operator[] (string key)
@@ -211,7 +212,6 @@ int main()
     StringIntMap m;
     string s;
     while(cin >> s) {
-        cout << s << endl;
         m[s]++;
     }
     cout << m;
