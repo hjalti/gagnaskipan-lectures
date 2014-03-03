@@ -122,7 +122,7 @@ int main()
     srand(time(NULL));
     HashCollection hc(100);
     for(int i = 0; i < hc.size(); i++) {
-        cout << hc.get_hash(i, "hulda") % 30000 << endl;
+        cout << hc.get_hash(i, "gagnaskipan") % 30000 << endl;
     }
 
     return 0;
