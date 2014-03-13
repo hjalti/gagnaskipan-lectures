@@ -28,12 +28,13 @@ Position PositionalObject::get_position()
 	return pos;
 }
 
-double PositionalObject::distance_to(PositionalObject &p)
+double PositionalObject::distance_to(PositionalObject *p)
 {
-	return sqrt(pow(pos.x - p.get_position().x, 2) + pow(pos.y - p.get_position().y, 2));
+	return sqrt(pow(pos.x - p->get_position().x, 2) + pow(pos.y - p->get_position().y, 2));
 }
 
 void PositionalObject::display()
 {
-	cout << get_name() << " at (" << pos.x << ", " << pos.y << ")" << endl;
+	GameObject::display();
+	cout <<  " at (" << pos.x << ", " << pos.y << ")";
 }

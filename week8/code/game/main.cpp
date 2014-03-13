@@ -1,12 +1,13 @@
 #include <iostream>
 
-#include "PositionalObject.h"
+#include "InteractiveGameConsole.h"
 
 using namespace std;
 
 int main()
 {
-	PositionalObject po("viii", Position(3,4));
-	po.display();
+	InteractiveGameConsole c;
+	c.start();
+
 	return 0;
 }

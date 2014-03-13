@@ -42,9 +42,27 @@ Weapon* WeaponCollection::current()
 
 void WeaponCollection::add(Weapon *w)
 {
-	if(count == capacity) {
+	if(full()) {
 		throw NoMoreSpaceException();
 	}
 	weapons[count++] = w;
 }
 
+bool WeaponCollection::full()
+{
+	return capacity == count;
+}
+
+void WeaponCollection::display()
+{
+	for(int i = 0; i < count; i++) {
+		cout << "   ";
+		if(i == curr) {
+			cout << "*";
+		} else {
+			cout << " ";
+		}
+		weapons[i]->display();
+		cout << endl;
+	}
+}

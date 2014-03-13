@@ -11,7 +11,7 @@ class GameObject
 	public:
 		GameObject();
 		GameObject(string name);
-		virtual ~GameObject ();
+		virtual ~GameObject () { }
 
 		string get_name();
 		void set_name(string name);

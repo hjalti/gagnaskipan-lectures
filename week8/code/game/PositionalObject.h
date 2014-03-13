@@ -19,7 +19,7 @@ class PositionalObject : public GameObject
 		void set_position(Position pos);
 		Position get_position();
 
-		double distance_to(PositionalObject &p);
+		double distance_to(PositionalObject *p);
 
 		virtual void display();
 

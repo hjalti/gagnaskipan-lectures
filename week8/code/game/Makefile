@@ -1,2 +1,5 @@
 all:
-	g++ -Wall -pedantic *.cpp
+	g++ -Wall -pedantic -ggdb *.cpp
+
+test: all
+	./a.out

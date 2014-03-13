@@ -17,6 +17,9 @@ class WeaponCollection
 		void prev();
 		Weapon* current();
 		void add(Weapon *w);
+		bool full();
+
+		void display();
 
 	private:
 		Weapon **weapons;
