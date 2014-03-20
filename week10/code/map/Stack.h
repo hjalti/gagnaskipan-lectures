@@ -1,3 +1,6 @@
+#ifndef STACK_H
+#define STACK_H
+
 #include <iostream>
 
 using namespace std;
@@ -7,16 +10,6 @@ class EmptyStackException { };
 template<class T>
 class Stack
 {
-    private:
-		template<class T>
-		struct Node
-		{
-			T data;
-			Node<T> *link;
-		};
-
-        Node<T> *head;
-
     public:
         // Initializes an empty stack.
         Stack();
@@ -33,6 +26,16 @@ class Stack
 
         // Retrieves the top of the stack.
         T top();
+
+    private:
+        struct Node
+        {
+            T data;
+            Node *link;
+        };
+
+        Node *head;
+
 };
 
 
@@ -52,7 +55,7 @@ bool Stack<T>::empty()
 template<class T>
 void Stack<T>::push(T item)
 {
-    Node<T> *tmp = new Node<T>();
+    Stack<T>::Node *tmp = new Stack<T>::Node();
     tmp->data = item;
     tmp->link = head;
     head = tmp;
@@ -66,7 +69,7 @@ T Stack<T>::pop()
     }
 
     T t = head->data;
-    Node<T> *next = head->link;
+    Stack<T>::Node *next = head->link;
     delete head;
     head = next;
     return t;
@@ -80,3 +83,5 @@ T Stack<T>::top()
     }
     return head->data;
 }
+
+#endif

@@ -3,20 +3,11 @@
 using namespace std;
 
 class EmptyStackException { };
+class NoMoreElementsException { };
 
 template<class T>
 class Stack
 {
-    private:
-		template<class T>
-		struct Node
-		{
-			T data;
-			Node<T> *link;
-		};
-
-        Node<T> *head;
-
     public:
         // Initializes an empty stack.
         Stack();
@@ -33,6 +24,16 @@ class Stack
 
         // Retrieves the top of the stack.
         T top();
+
+    private:
+        struct Node
+        {
+            T data;
+            Node *link;
+        };
+
+        Node *head;
+
 };
 
 
@@ -52,7 +53,7 @@ bool Stack<T>::empty()
 template<class T>
 void Stack<T>::push(T item)
 {
-    Node<T> *tmp = new Node<T>();
+    Stack<T>::Node *tmp = new Stack<T>::Node();
     tmp->data = item;
     tmp->link = head;
     head = tmp;
@@ -66,7 +67,7 @@ T Stack<T>::pop()
     }
 
     T t = head->data;
-    Node<T> *next = head->link;
+    Stack<T>::Node *next = head->link;
     delete head;
     head = next;
     return t;
@@ -79,4 +80,17 @@ T Stack<T>::top()
         throw EmptyStackException();
     }
     return head->data;
+}
+
+int main()
+{
+    Stack<int> s;
+    for(int i = 0; i < 10; i++) {
+        s.push(i * i);
+    }
+    while(!s.empty()) {
+        cout << s.pop() << endl;
+    }
+
+    return 0;
 }
