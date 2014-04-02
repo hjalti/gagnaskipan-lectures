@@ -1,33 +1,66 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
-#include <iterator>
 
 using namespace std;
 
-string to_lower(const string& s) {
-    string lower;
-    transform(s.begin(), s.end(), back_inserter(lower), ::tolower);
-    return lower;
+template<class T>
+void print(T t) {
+    cout << t << " ";
 }
 
-string strip(const string& s) {
-    string stripped;
-    remove_copy_if(s.begin(), s.end(), back_inserter(stripped), ::isspace);
-    return stripped;
+bool case_insensitive_compare(char c1, char c2) {
+    return tolower(c1) == tolower(c2);
 }
 
+struct ci_compare
+{
+    bool operator() (char c1, char c2) {
+        return tolower(c1) == tolower(c2);
+    }
+};
+
+struct increase_by
+{
+    increase_by(int x) {
+        this->x = x;
+    }
+
+    void operator () (int &n) {
+        n += x;
+    }
+    int x;
+};
 
 int main()
 {
-    string s = "HELLOOOOOO";
-    cout << s << endl;
-    cout << to_lower(s) << endl;
+    int x[30];
+    for(int i = 0; i < 30; i++) {
+        x[i] = i;
+    }
 
-    string s2 = "this a              string has aa      lot \t\t\t of spa        ces";
-    cout << s2 << endl;
-    cout << strip(s2) << endl;
+    for_each(x, x+30, print<int>);
+    cout << endl;
 
+    for_each(x, x+30, increase_by(10));
+
+    for_each(x, x+30, print<int>);
+    cout << endl;
+
+    int y[40];
+    copy(x, x+30, y);
+
+    for_each(y, y+30, print<int>);
+    cout << endl;
+
+    cout << equal(x, x+30, y) << endl;
+
+    string s1 = "heLLo";
+    string s2 = "HELLo";
+
+    cout << equal(s1.begin(), s1.end(), s2.begin()) << endl;
+    cout << equal(s1.begin(), s1.end(), s2.begin(), case_insensitive_compare) << endl;
+    cout << equal(s1.begin(), s1.end(), s2.begin(), ci_compare()) << endl;
 
     return 0;
 }
