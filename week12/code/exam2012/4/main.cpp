@@ -1,6 +1,18 @@
 #include <iostream>
 #include <vector>
+
 using namespace std;
+
+template<class T>
+bool member(T c, vector<T> v) {
+    for(size_t i = 0; i < v.size(); i++) {
+        if(v[i] == c) {
+            return true;
+        }
+    }
+    return false;
+}
+
 int main()
 {
     vector<char> myVector;

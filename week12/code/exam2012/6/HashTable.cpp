@@ -1,5 +1,5 @@
 #include <iostream>
-#include "hashtable.h"
+#include "HashTable.h"
 
 using namespace std;
 
@@ -26,7 +26,7 @@ HashTable<T>::~HashTable()
 template <class T>
 int HashTable<T>::hash(string key)
 {
-    int sum=0;
+    int sum = 0;
     // Add the ASCII codes of the characters in the key
     for (unsigned int i=0; i<key.size(); i++)
     {
@@ -34,4 +34,35 @@ int HashTable<T>::hash(string key)
         sum = sum + ch;
     }
     return (sum % TABLE_SIZE); // Perform modulo division
+}
+
+template <class T>
+T* HashTable<T>::find(string key)
+{
+    int pos = hash(key);
+    if(table[pos] == NULL) {
+        return NULL;
+    }
+    for(typename list<myPair*>::iterator it = table[pos]->begin();
+        it != table[pos]->end(); it++) {
+            if((*it)->first == key) {
+                return &(*it)->second;
+            }
+    }
+    return NULL;
+}
+
+template <class T>
+void HashTable<T>::insert(string theKey, T& theValue) throw (HashException)
+{
+    T* val = find(theKey);
+    if(val != NULL) {
+        *val = theValue;
+    } else {
+        int pos = hash(theKey);
+        if(table[pos] == NULL) {
+            table[pos] = new list<myPair*>;
+        }
+        table[pos]->push_back(new pair<string,T>(theKey, theValue));
+    }
 }

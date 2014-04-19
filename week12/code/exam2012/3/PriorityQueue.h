@@ -5,6 +5,9 @@
 
 #include <string>
 #include "QueueException.h"
+
+using namespace std;
+
 struct QueueNode
 {
 	string data;
@@ -12,7 +15,7 @@ struct QueueNode
 	QueueNode *link;
 };
 
-typedef QueueNode* QueueNodePtr;
+typedef QueueNode* NodePtr;
 
 class PriorityQueue
 {
@@ -29,19 +32,17 @@ class PriorityQueue
 		//priority queue based on the thePriority.  Uses addToEmptyQueue().  If
 		//the new item to be added has priority >= the priority of an existing
 		//item then the new item is inserted before the existing item
-		string remove() throw (QueueException);
+		string remove();
 		//Returns and removes the item at the front of the priority queue and throws an
 		//instance of QueueException if the priority queue is empty
 		bool empty( ) const;
 		//Returns true if the priority queue is empty. Returns false otherwise.
 	private:
-		QueueNodePtr front;
+		NodePtr front;
 		//Points to the head of a linked list. Items are removed at the head
-		QueueNodePtr back;
+		NodePtr back;
 		//Points to the back of a linked list. Items are inserted at the back
 		//if no priority is given.
 		void addToEmptyQueue(string theItem, int thePriority);
-		// Postcondition: theItem with thePriority has been added
-		as the only item in the queue
 };
 #endif //PRIORITYQUEUE_H

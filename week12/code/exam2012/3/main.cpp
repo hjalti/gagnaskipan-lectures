@@ -11,12 +11,18 @@ int main( )
     q.add("Sigga", 3);   // Added to the next to back of the queue
     q.add("Magga");      // Added to the back of the queue
 
+    string removed;
     for (int i=1; i<=5; i++)
     {
         removed = q.remove();
         cout << removed << " was removed" << endl;
     }
-    removed = q.remove();
-    cout << removed << " was removed" << endl;
+    try {
+        removed = q.remove();
+        cout << removed << " was removed" << endl;
+    } catch (QueueException qe) {
+        cout << qe.getMessage() << endl;
+    }
+
     return 0;
 }

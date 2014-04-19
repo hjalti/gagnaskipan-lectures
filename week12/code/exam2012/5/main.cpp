@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Set.cpp"
+#include "Set.h"
 
 using namespace std;
 
@@ -17,8 +17,9 @@ int main()
     if (!mySet.contains(4))
         cout << "Did not find element 4" << endl;
 
-    // Hérna þarf að bæta við kóða sem skrifar út einstök stök mengisins með
-    // því að nota ítrara
+    for(vector<int>::iterator it = mySet.begin(); it != mySet.end(); it++) {
+        cout << *it << endl;
+    }
 
     return 0;
 }

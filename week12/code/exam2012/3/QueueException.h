@@ -1,7 +1,9 @@
 #ifndef QUEUEEXCEPTION_H
 #define QUEUEXCEPTION_H
 #include <string>
+
 using namespace std;
+
 class QueueException
 {
 	public:

@@ -16,7 +16,7 @@ const int TABLE_SIZE = 37; // The number of buckets in the hash table (a prime!)
 template <class T>
 class HashTable
 {
-	typedef pair<string,T> myPair;
+	typedef pair<string, T> myPair;
 	public:
 		HashTable();
 		~HashTable();
