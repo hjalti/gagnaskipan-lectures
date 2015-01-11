@@ -1,0 +1,457 @@
+\documentclass[11pt]{beamer}
+
+% This file is a solution template for:
+
+% - Talk at a conference/colloquium.
+% - Talk length is about 20min.
+% - Style is ornate.
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice.
+
+
+\mode<presentation>
+{
+    % \usetheme{JuanLesPins}
+    \usetheme{CambridgeUS}
+    % or ...
+
+    % \setbeamercovered{transparent}
+    % or whatever (possibly just delete it)
+}
+
+
+
+\usepackage[icelandic]{babel}
+% or whatever
+\selectlanguage{icelandic}
+
+\usepackage[latin1]{inputenc}
+% or whatever
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\newcommand{\perm}{{\mathfrak S}}
+\newcommand{\clpreim}{\texttt{ClassicalPreim}}
+\newcommand{\meshpreim}{\texttt{MeshPreim}}
+\renewcommand{\epsilon}{\varepsilon}
+
+
+\DeclareMathOperator{\Av}{Av}
+
+\lstset{
+    language=C++,
+    basicstyle = \small    \ttfamily,
+    keywordstyle = \color{blue},
+    stringstyle = \color{red},
+    commentstyle = \color{green},
+    showstringspaces = false,
+    tabsize = 3,
+    numbers = left,
+    frame=single,
+    captionpos=b
+}
+\newcommand{\cpp}{\lstinline}
+
+
+\title{Minni og bendar}
+\subtitle{Gagnaskipan 2015}
+%{Include Only If Paper Has a Subtitle}
+
+\author[Hjalti]{Hjalti Magnússon (\href{mailto:hjaltim@ru.is}{hjaltim@ru.is})}
+
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[Reykjavík University] % (optional, but mostly needed)
+{
+    \includegraphics[height=2cm]{rulogo}
+}
+
+\date{{\today}}
+% - Either use conference name or its abbreviation.
+% - Not really informative to the audience, more for people (including
+%   yourself) who are reading the slides online
+
+%\subject{Computer Science}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+%\pgfdeclareimage[height=1.5cm]{university-logo}{rulogo.PNG}
+%\logo{\pgfuseimage{university-logo}}
+
+%\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+%\setbeamerfont{itemize/enumerate subsubbody}{size=\small}
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+\AtBeginSection[]
+{
+    \begin{frame}<beamer>{Yfirlit}
+        \tableofcontents[currentsection,currentsubsection]
+    \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+    \begin{frame}<beamer>{Yfirlit}
+        \tableofcontents[currentsection,currentsubsection]
+    \end{frame}
+}
+
+\DeclareMathOperator{\id}{id}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{Yfirlit}
+    \tableofcontents
+    %% You might wish to add the option [pausesections]
+\end{frame}
+
+\section{Minnismódelið}
+
+\begin{frame}{Minnismódelið í C++}
+    Minnið sem C++ notar má skipta í þrjá hluta
+    \begin{itemize}
+        \item Static minni
+        \item Stafli (e. stack)
+        \item Hrúga, kös (e. heap)
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Static minni}
+    \begin{itemize}
+        \item Geymir "`global"' breytur
+        \item Stærð ákvörðuð á þýðingartíma
+        \item Skoðum það ekki nánar
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Stafli}
+    \begin{itemize}
+        \item Geymir gögn og lýsigögn (e. metadata) allra falla sem búið er að kalla á, t.d
+            \begin{itemize}
+                \item Breytur
+                \item Færibreytur
+                \item Skilagildi
+            \end{itemize}
+        \item Gögn sem tengjast hverju falli kallast kvaðningarfærsla (e. activation record)
+        \item Stærð kvaðningarfærsla er ákvörðuð á þýðingartíma
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Hrúga}
+    \begin{itemize}
+        \item Stórt minnissvæði þar sem minni er úthlutað á kviklegan hátt (e. dynamically)
+        \item Minni úthlutað á keyrslutíma
+        \item Stýrikerfi heldur utan um hvaða hluta minnisins við erum að nota
+        \item Við verðum að sjálf að segja stýrikerfinu að við séum hætt að nota tiltekna hluta minnisins
+    \end{itemize}
+\end{frame}
+
+\section{Bendar}
+
+\begin{frame}[fragile]
+    \frametitle{Bendar}
+    \begin{itemize}
+        \item Allar breytur (þar með talið bendar) fá úthlutað minni á staflanum
+        \item Breytur innihalda \textbf{gildi} en bendar innihalda \textbf{minnisföng}
+        \item Allir bendar eru jafn stórir
+        \item Ef búinn er til bendir með kalli á \cpp|new|, er það minni sem bendirinn bendir á tekið frá á hrúgunni
+            \begin{itemize}
+                \item Bendirinn sjálfur er geymdur á staflanum
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Dæmi}
+    \lstinputlisting[title=pointer1.cpp]{../code/pointer1.cpp}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Týpur benda}
+    \begin{itemize}
+        \item \cpp|new int|, \cpp|new int[30]|, \cpp|new string|, \cpp|new int*| (og allt sem kemur út úr \cpp|new|) skila sama fyrirbærinu: bendi
+        \item Týpur benda segja C++ stærðina á þeim minnisblokkum sem við erum að vinna með
+        \item \cpp|int a* = new int[30]| tekur frá $30 \cdot 4$ bæti í minni (og skilar bendi á fremsta minnishólfið)
+        \item \cpp|a[4]| er breytt í \cpp|*(a + 4)| og skilar okkur fimmta stakinu í \cpp|a|
+            \begin{itemize}
+                \item Hvað gerir \cpp|a + 4|?
+                \item Ef \cpp|a| hefði verið \cpp|double|-bendir, hefði \cpp|a + 4| skilað sama minnisfangi?
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Dæmi}
+    \begin{lstlisting}[title=pointer2.cpp]
+int *a = new int[10];
+for(int i = 0; i < 10; i++) a[i] = i;
+for(int i = 0; i < 10; i++)
+    cout << a[i] << endl;
+
+void* x = a;
+for(int i = 0; i < 5; i++)
+    cout << ((long*)x)[i] << endl;
+for(int i = 0; i < 20; i++)
+    cout << ((short*)x)[i] << endl;
+for(int i = 0; i < 40; i++)
+    cout << ((int)((unsigned char*)x)[i]) << endl;
+
+double *y = (double*)a;
+for(int i = 0; i < 5; i++)
+    cout << y[i] << endl;
+    \end{lstlisting}
+\end{frame}
+
+\section{Tilvísunarbreytur}
+
+\begin{frame}{Tilvísunarbreytur}
+    \begin{itemize}
+        \item Tilvísanir búa til \emph{alias} á breytur
+            \begin{itemize}
+                \item Tvö nöfn á \textbf{sömu} breytunni
+            \end{itemize}
+        \item Notum tilvísanir aðallega í færibreytum
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Dæmi}
+    \lstinputlisting[title=reference.cpp]{../code/reference.cpp}
+\end{frame}
+
+\section{Færibreytur}
+
+\begin{frame}{Pass-by-value}
+    \begin{itemize}
+        \item Allar færibreytur í C++ eru pass-by-value
+        \item Fallið vinnur með afrit af breytunni okkar
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Dæmi}
+    \lstinputlisting[title=passbyvalue1.cpp]{../code/passbyvalue1.cpp}
+\end{frame}
+
+\begin{frame}{Pass-by-reference}
+    \begin{itemize}
+        \item Hægt er að gera færibreytu pass-by-reference (tilvísunarfæribreyta)
+            \begin{itemize}
+                \item Fallið fær alias
+                \item Fallið vinnur með nákvæmlega þá breytu sem við sendum inn
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Dæmi}
+    \begin{lstlisting}[title=passbyref1.cpp]
+void fun(int& a) {
+    a = 15;
+    cout << "fun: " << a << endl;
+}
+
+int main() {
+    int x = 3;
+    cout << "main: " << x << endl;
+    fun(x);
+    cout << "main: " << x << endl;
+
+    return 0;
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Pass-by-value bendar}
+    \begin{lstlisting}[title=passbyvalue2.cpp]
+void fun(int *x) {
+    *x = 15;
+    cout << "fun: " << *x << endl;
+}
+
+int main() {
+    int *x = new int(3);
+    cout << "main: " << *x << endl;
+    fun(x);
+    cout << "main: " << *x << endl;
+
+    return 0;
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Pass-by-value bendar}
+    \begin{lstlisting}[title=passbyvalue3.cpp]
+void fun(int *x) {
+    *x = 15;
+    cout << "fun: " << *x << endl;
+    x = NULL;
+}
+
+int main() {
+    int *x = new int(3);
+    cout << "main: " << *x << endl;
+    fun(x);
+    cout << "main: " << *x << endl;
+
+    return 0;
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Pass-by-reference bendar}
+    \begin{lstlisting}[title=passbyvalue3.cpp]
+void fun(int *&x) {
+    *x = 15;
+    cout << "fun: " << *x << endl;
+    x = NULL;
+}
+
+int main() {
+    int *x = new int(3);
+    cout << "main: " << *x << endl;
+    fun(x);
+    cout << "main: " << *x << endl;
+
+    return 0;
+}
+    \end{lstlisting}
+\end{frame}
+
+\section{Minnisleki}
+
+\begin{frame}{Minnismeðhöndlun}
+    \begin{itemize}
+        \item C++ sér um allt minni á staflanum (þ.m.t. tiltekt)
+        \item C++ veit bara hvort að minni sér frátekið eða ekki á staflanum
+            \begin{itemize}
+                \item Við verðum að sjá um að skila minni sem við erum hætt að nota
+                \item Það þýðir að við þurfum að halda vel utan um bendana okkar og passa að týna þeim ekki
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Minnisleki}
+    \begin{lstlisting}[title=memoryleak.cpp]
+void fun() {
+    int *x = new int[10];
+    for(int i = 0; i < 10; i++) {
+        x[i] = i;
+    }
+}
+
+int main() {
+    fun();
+    return 0;
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Ábyrgð}
+    \begin{itemize}
+        \item Við hönnun forrita þurfum við að íhuga vel hver ber ábyrgð á því að skila því minni sem við tökum frá
+        \item Það þarf alls ekki að vera að minni þurfi að skila á sama stað (sama falli) og því var úthlutað
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Hvar á delete að vera?}
+    \begin{lstlisting}[title=delete1.cpp]
+int special(int n) {
+    int *arr = new int[n];
+    int sum = 0;
+    arr[0] = 1;
+    for(int i = 1; i < n; i++) {
+        arr[i] = 0;
+        for(int j = 0; j < i; j++)
+            arr[i] += arr[j];
+        sum += arr[i];
+    }
+    return sum;
+}
+int main() {
+    cout << special(11) << endl;
+    return 0;
+}
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Hvar á delete að vera?}
+    \begin{lstlisting}[title=delete2.cpp]
+int sum(int *arr, int n) {
+    int s = 0;
+    for(int i = 0; i < n; i++)
+        s += arr[i];
+    return s;
+}
+int main() {
+    int *x = new int[10];
+    for(int i = 0; i < 10; i++)
+        x[i] = i * i;
+    cout << sum(x, 10) << endl;
+    return 0;
+}
+    \end{lstlisting}
+\end{frame}
+
+
+\begin{frame}[fragile]
+    \frametitle{Hvar á delete að vera?}
+    \begin{lstlisting}[title=delete3.cpp]
+int* init_arr(int n) {
+    int *arr = new int[n];
+    for(int i = 0; i < n; i++) {
+        arr[i] = 0;
+    }
+    return arr;
+}
+int main() {
+    int *x = init_arr(10);
+    for(int i = 0; i < 10; i++) {
+        cout << x[i] << " ";
+    }
+    return 0;
+}
+    \end{lstlisting}
+\end{frame}
+
+\end{document}
