@@ -80,3 +80,6 @@
 
 ## C++ stuff
 a.out
+
+*.swp
+*.swo
