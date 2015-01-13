@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 
 using namespace std;
 
@@ -16,9 +16,6 @@ int innocent(int x)
 
 int main()
 {
-    int x = 3;
-    int &y = x;
-
     int * b = shady();
     cout << *b << endl;
     innocent(4);
