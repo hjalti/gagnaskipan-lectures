@@ -1,0 +1,276 @@
+\documentclass[11pt]{beamer}
+
+% This file is a solution template for:
+
+% - Talk at a conference/colloquium.
+% - Talk length is about 20min.
+% - Style is ornate.
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice.
+
+
+\mode<presentation>
+{
+    % \usetheme{JuanLesPins}
+    \usetheme{CambridgeUS}
+    % or ...
+
+    % \setbeamercovered{transparent}
+    % or whatever (possibly just delete it)
+}
+
+
+
+\usepackage[icelandic]{babel}
+% or whatever
+\selectlanguage{icelandic}
+
+\usepackage[latin1]{inputenc}
+% or whatever
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\newcommand{\perm}{{\mathfrak S}}
+\newcommand{\clpreim}{\texttt{ClassicalPreim}}
+\newcommand{\meshpreim}{\texttt{MeshPreim}}
+\renewcommand{\epsilon}{\varepsilon}
+
+
+\DeclareMathOperator{\Av}{Av}
+
+\lstset{
+    language=C++,
+    basicstyle = \small    \ttfamily,
+    keywordstyle = \color{blue},
+    stringstyle = \color{red},
+    commentstyle = \color{green},
+    showstringspaces = false,
+    tabsize = 3,
+    numbers = left,
+    frame=single,
+    captionpos=b
+}
+\newcommand{\cpp}{\lstinline}
+
+
+\title{Klasar}
+\subtitle{Gagnaskipan 2015}
+%{Include Only If Paper Has a Subtitle}
+
+\author[Hjalti]{Hjalti Magnússon (\href{mailto:hjaltim@ru.is}{hjaltim@ru.is})}
+
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[Reykjavík University] % (optional, but mostly needed)
+{
+    \includegraphics[height=2cm]{rulogo}
+}
+
+\date{{\today}}
+% - Either use conference name or its abbreviation.
+% - Not really informative to the audience, more for people (including
+%   yourself) who are reading the slides online
+
+%\subject{Computer Science}
+% This is only inserted into the PDF information catalog. Can be left
+% out.
+
+%\pgfdeclareimage[height=1.5cm]{university-logo}{rulogo.PNG}
+%\logo{\pgfuseimage{university-logo}}
+
+%\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+%\setbeamerfont{itemize/enumerate subsubbody}{size=\small}
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+\AtBeginSection[]
+{
+    \begin{frame}<beamer>{Yfirlit}
+        \tableofcontents[currentsection,currentsubsection]
+    \end{frame}
+}
+
+\AtBeginSubsection[]
+{
+    \begin{frame}<beamer>{Yfirlit}
+        \tableofcontents[currentsection,currentsubsection]
+    \end{frame}
+}
+
+\DeclareMathOperator{\id}{id}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{Yfirlit}
+    \tableofcontents
+    %% You might wish to add the option [pausesections]
+\end{frame}
+
+\section{Klasar}
+
+\begin{frame}{Klasar}
+    \begin{itemize}
+        \item Klasar geyma gögn og skilgreina hegðun (ofan á gögnin)
+        \item Klasar eru notaðir í ýmsum tilgangi
+    \end{itemize}
+\end{frame}
+
+
+\section{Afritatökusmiður, gildisveitingarvirkinn og eyðir}
+
+\begin{frame}{Þrenningin}
+    \begin{itemize}
+        \item Ef klasi notar enga benda nægir sjálfgefin hegðun C++
+        \item Ef klasi notar benda þarf að útfæra allt eftirfarandi
+            \begin{itemize}
+                \item Afritatökusmið
+                \item Gildisveitingarvirkjann
+                \item Eyði
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Eyðir}
+    \begin{itemize}
+        \item Eyðir (e. destructor) sér um að skila minni sem klasinn hefur tekið frá á hrúgunni
+        \item Hvenær er kallað á eyði?
+            \begin{itemize}
+                \item Ef tilvik klasans er á staflanum, þá er kallað á eyði þegar keyrsla forritsins fer út fyrir það gildissvið þar sem tilvik klasans var búið til
+                \item Ef tilvik klasans er á hrúgunni, þá er kallað á eyði tilviksins þegar kallað er á \cpp|delete| með bendi á tilvikið
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Gildisveitingarvirkinn}
+    \begin{itemize}
+        \item Gildisveitingarvirkinn (e. assignment operator) sér um að afrita eitt tilvik af klasa yfir í annað tilvik af sama klasa
+        \item Sjálfgefin hegðun C++ er að afrita allar meðlimabreytur
+            \begin{itemize}
+                \item Slæmt ef tilvikið inniheldur benda
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Afritatökusmiður}
+    \begin{itemize}
+        \item Afritatökusmiður (e. copy constructor) sér um að smíða nýtt tilvik af klasanum sem er afrit af öðru tilviki
+        \item Sjálfgefin hegðun C++ er að afrita allar meðlimabreytur
+            \begin{itemize}
+                \item Slæmt ef tilvikið inniheldur benda
+            \end{itemize}
+        \item Hvenær er kallað á afritatökusmið?
+            \begin{itemize}
+                \item Þegar tilvik af klasanum er sent sem call-by-value færibreyta inn í fall
+                \item Þegar tilviki af klasanum er skilað úr falli (ekki sem tilvísun)
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\section{Const}
+
+\begin{frame}{Afritataka}
+    \begin{itemize}
+        \item Afritatökur geta verið dýrar
+        \item Til að forðast afritatöku, þegar hlutir eru sendir sem færibreytur, eru tilvísanir oft notaðar
+            \begin{itemize}
+                \item Fallið getur þá breytt \emph{okkar} tilviki af klasanum
+            \end{itemize}
+        \item Hægt að merkja tilvísun með \cpp|const|
+            \begin{itemize}
+                \item Fallið má þá ekki \textbf{breyta} tilvikinu
+                \item Hvað þýðir "`breyta"'?
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Const klasaföll}
+    \begin{itemize}
+        \item Föll klasa sem merkt eru með \cpp|const| mega ekki breyta klasanum
+        \item Þau geta t.d. ekki
+            \begin{itemize}
+                \item Gefið meðlimabreytum nýtt gildi
+                \item Kallað á önnur föll í klasanum sem eru ekki merkt með \cpp|const|
+                \item Kalla í föll á meðlimabreytum sem ekki eru merkt const
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\section{Sniðmát}
+
+\begin{frame}{Sniðmát}
+    \begin{itemize}
+        \item Hægt er að búa til sniðmát af klösum og föllum í C++
+        \item Lærum það betur seinna á önninni
+        \item Bókin notar sniðmát
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Dæmi (með sniðmáti)}
+    \begin{lstlisting}
+template <typename E> class List {
+public:
+  List() {}
+  virtual ~List() {}
+  virtual void clear() = 0;
+  virtual void insert(const E& item) = 0;
+  virtual void append(const E& item) = 0;
+  virtual E remove() = 0;
+  virtual int length() const = 0;
+  virtual const E& getValue() const = 0;
+};
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Dæmi (án sniðmáts)}
+    \begin{lstlisting}
+class DoubleList {
+public:
+  DoubleList() {}
+  ~DoubleList() {}
+  void clear();
+  void insert(const double& item);
+  void append(const double& item);
+  double remove();
+  int length() const;
+  const double& getValue() const;
+};
+    \end{lstlisting}
+\end{frame}
+
+\end{document}

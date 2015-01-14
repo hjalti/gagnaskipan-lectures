@@ -204,7 +204,7 @@
     \begin{itemize}
         \item \cpp|new int|, \cpp|new int[30]|, \cpp|new string|, \cpp|new int*| (og allt sem kemur út úr \cpp|new|) skila sama fyrirbærinu: bendi
         \item Týpur benda segja C++ stærðina á þeim minnisblokkum sem við erum að vinna með
-        \item \cpp|int a* = new int[30]| tekur frá $30 \cdot 4$ bæti í minni (og skilar bendi á fremsta minnishólfið)
+        \item \cpp|int *a = new int[30]| tekur frá $30 \cdot 4$ bæti í minni (og skilar bendi á fremsta minnishólfið)
         \item \cpp|a[4]| er breytt í \cpp|*(a + 4)| og skilar okkur fimmta stakinu í \cpp|a|
             \begin{itemize}
                 \item Hvað gerir \cpp|a + 4|?
@@ -354,7 +354,7 @@ int main() {
     \end{lstlisting}
 \end{frame}
 
-\section{Minnisleki}
+\section{Minnismeðhöndlun}
 
 \begin{frame}{Minnismeðhöndlun}
     \begin{itemize}
@@ -450,6 +450,39 @@ int main() {
         cout << x[i] << " ";
     }
     return 0;
+}
+    \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Gildissvið}
+    \begin{itemize}
+        \item Þumalputtaregla: Slaufusvigar skilgreina gildissvið
+        \item Breyta sem skilgreind er inni í gildissviði lifir bara þar
+        \item Þegar keyrsla forrits fer út úr gildissviði skilar C++ því minni sem tekið var frá fyrir það gildissvið
+            \begin{itemize}
+                \item Sjáum nánar þegar við tölum um klasa
+            \end{itemize}
+        \item Hægt er að skyggja á (e. shadow) breytur
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Dæmi}
+    \begin{lstlisting}[title=scope1.cpp]
+int stuff(int x) { cout << x << endl; }
+int main() {
+    int x = 3;
+    cout << x << endl;
+    {
+        int x = 12;
+        cout << x << endl;
+    }
+    cout << x << endl;
+    stuff(42);
+    for(int x = 1337; x < 1338; x++) {
+        cout << x << endl;
+    }
+    cout << x << endl;
 }
     \end{lstlisting}
 \end{frame}
