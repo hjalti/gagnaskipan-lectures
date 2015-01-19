@@ -4,34 +4,31 @@
 
 using namespace std;
 
-int main()
-{
-    vector<int> v;
+class WeirdException {
+    public:
+        string message;
+};
 
-    int n;
+void fun3() {
+    WeirdException ex = { "Wat" };
+    throw ex;
+}
 
-    for(int i = 0; i != 10; i++)
-    {
-        v.push_back(i * 3);
+void fun2() {
+    fun3();
+}
+
+void fun1() {
+    fun2();
+}
+
+int main() {
+
+    try {
+        fun1();
     }
-
-    while(true)
-    {
-        cin >> n;
-
-        try
-        {
-            cout << "Checking index with at" << endl;
-            cout << "v[" << n << "] = " << v.at(n) << endl;
-        }
-        catch(out_of_range)
-        {
-            cout << "Caught out_of_range" << endl;
-        }
-
-        cout << "Checking index with operator[]" << endl;
-        cout << "v[" << n << "] = " << v[n] << endl;
-
+    catch (WeirdException ex) {
+        cout << "Caught WeirdException(" << ex.message << ")" << endl;
     }
 
     return 0;

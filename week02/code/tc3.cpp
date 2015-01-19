@@ -4,20 +4,16 @@
 
 using namespace std;
 
-int find(int n, int array[], int length)
-{
-    for(int i = 0; i != length; i++)
-    {
-        if(array[i] == n)
-        {
+int find(int n, int array[], int length) {
+    for(int i = 0; i != length; i++) {
+        if(array[i] == n) {
             return i;
         }
     }
     return -1;
 }
 
-int main()
-{
+int main() {
     srand(time(NULL));
 
     int n;
@@ -25,8 +21,7 @@ int main()
 
     int *array = new int[n];
 
-    for(int i = 0; i != n; i++)
-    {
+    for(int i = 0; i != n; i++) {
         array[i] = rand() % n;
     }
 
