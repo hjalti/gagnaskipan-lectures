@@ -14,8 +14,7 @@ typedef Node* NodePtr;
 void head_insert(NodePtr& head, int the_number, string the_item);
 // Creates a new Node with the given values and makes it the head of the given list
 
-int main()
-{
+int main() {
     NodePtr head;
     NodePtr next;
 
@@ -28,14 +27,14 @@ int main()
     cout << head->item << ": " << head->count << endl;
 
     next = head->link;
-    if (next != NULL)
+    if (next != NULL) {
         cout << next->item << ": " << next->count << endl;
+    }
 
 }
 
-void head_insert(NodePtr& head, int the_number, string the_item)
 // Creates a new Node with the given values and makes it the head of the given list
-{
+void head_insert(NodePtr& head, int the_number, string the_item) {
     NodePtr tmpPtr;
     tmpPtr = new Node;
     tmpPtr->count = the_number;

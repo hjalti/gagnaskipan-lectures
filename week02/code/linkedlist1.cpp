@@ -11,8 +11,7 @@ struct Node
 
 typedef Node* NodePtr;
 
-int main()
-{
+int main() {
     NodePtr head;
 
     head = new Node;
