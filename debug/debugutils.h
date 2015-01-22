@@ -6,7 +6,11 @@
 
 using namespace std;
 
+#ifdef MOOSHAK
+bool DEBUG = false;
+#else
 bool DEBUG = true;
+#endif
 
 template<class T>
 ostream& operator<<(ostream &out, const vector<T>& v) {
@@ -25,15 +29,15 @@ void print(T t) {
 }
 
 template<class T>
-void print(T *t, int len) {
+void printarr(T *t, int len) {
     if(!DEBUG) {
         return;
     }
     for(int i = 0; i < len; i++) {
         print(t[i]);
-        print(' ');
+        cout << ' ';
     }
-    print('\n');
+    cout << endl;
 }
 
 template<class T>
