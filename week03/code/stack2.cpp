@@ -10,7 +10,9 @@ struct Node
 
 typedef Node* NodePtr;
 
-class IntStack()
+class EmptyStackException { };
+
+class IntStack
 {
     public:
         // Initializes an empty stack.
@@ -34,20 +36,17 @@ class IntStack()
 };
 
 
-IntStack::IntStack()
-{
+IntStack::IntStack() {
     head = NULL;
 }
 
 
-bool IntStack::empty()
-{
+bool IntStack::empty() {
     return (head == NULL);
 }
 
 
-void IntStack::push(int item)
-{
+void IntStack::push(int item) {
     NodePtr tmp;
     tmp = new Node();
 
@@ -57,23 +56,19 @@ void IntStack::push(int item)
     head = tmp;
 }
 
-int IntStack::pop()
-{
-    if(empty())
-    {
-        return;
+int IntStack::pop() {
+    if(empty()) {
+        throw EmptyStackException();
     }
 
-    int top = head->date;
+    int top = head->data;
     NodePtr tmp = head;
     head = head->link;
-
-    delete head;
+    delete tmp;
 
     return top;
 }
 
-int IntStack::top()
-{
+int IntStack::top() {
     return head->data;
 }

@@ -23,8 +23,7 @@ class IntList
             head = tmp_ptr;
         }
 
-        void print()
-        {
+        void print() {
             cout << "List: " << endl;
             if(head == NULL) {
                 cout << "<empty>" << endl;

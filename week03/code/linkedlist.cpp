@@ -18,8 +18,7 @@ NodePtr search(NodePtr head, int target);
 void insert(NodePtr after_me, int item);
 
 
-int main()
-{
+int main() {
     NodePtr head = NULL;
 
     for(int i = 0; i != 10; i++)
@@ -36,9 +35,8 @@ int main()
     print(head);
 }
 
-void head_insert(NodePtr& head, int item)
 // Creates a new Node with the given values and makes it the head of the given list
-{
+void head_insert(NodePtr& head, int item) {
     NodePtr tmp_ptr;
     tmp_ptr = new Node;
     tmp_ptr->item = item;
@@ -47,35 +45,28 @@ void head_insert(NodePtr& head, int item)
 
 }
 
-void print(NodePtr head)
-{
-    if(head == NULL)
-    {
+void print(NodePtr head) {
+    if(head == NULL) {
         cout << "<empty>" << endl;
     }
 
     NodePtr iter;
-    for(iter = head; iter != NULL; iter = iter->link)
-    {
+    for(iter = head; iter != NULL; iter = iter->link) {
         cout << iter->item << endl;
     }
 }
 
-NodePtr search(NodePtr head, int target)
-{
+NodePtr search(NodePtr head, int target) {
     NodePtr iter;
-    for(iter = head; iter != NULL; iter = iter->link)
-    {
-        if(iter-> item == target)
-        {
+    for(iter = head; iter != NULL; iter = iter->link) {
+        if(iter-> item == target) {
             return iter;
         }
     }
     return NULL;
 }
 
-void insert(NodePtr after_me, int item)
-{
+void insert(NodePtr after_me, int item) {
     NodePtr tmp_ptr;
     tmp_ptr = new Node;
     tmp_ptr->item = item;

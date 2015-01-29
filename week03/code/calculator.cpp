@@ -37,26 +37,22 @@ class IntStack
         NodePtr head;
 };
 
-IntStack::IntStack()
-{
+IntStack::IntStack() {
     head = NULL;
 }
 
-void IntStack::empty_check()
-{
+void IntStack::empty_check() {
     if(empty())
     {
         throw EmptyStackException();
     }
 }
 
-bool IntStack::empty()
-{
+bool IntStack::empty() {
     return head == NULL;
 }
 
-void IntStack::push(int item)
-{
+void IntStack::push(int item) {
     NodePtr new_node = new Node();
 
     new_node->link = head;
@@ -65,8 +61,7 @@ void IntStack::push(int item)
     head = new_node;
 }
 
-int IntStack::pop()
-{
+int IntStack::pop() {
     empty_check();
 
     NodePtr tmp = head;
@@ -78,15 +73,13 @@ int IntStack::pop()
     return top;
 }
 
-int IntStack::top()
-{
+int IntStack::top() {
     empty_check();
 
     return head->data;
 }
 
-int main()
-{
+int main() {
     IntStack stack;
 
     int curr;
@@ -94,21 +87,16 @@ int main()
     char tmp;
     int right, left;
 
-    while(cin >> tmp)
-    {
-        if(isdigit(tmp))
-        {
+    while(cin >> tmp) {
+        if(isdigit(tmp)) {
             cin.putback(tmp);
             cin >> curr;
             stack.push(curr);
-        }
-        else
-        {
+        } else {
             oper = tmp;
             right = stack.pop();
             left = stack.pop();
-            switch (oper)
-            {
+            switch (oper) {
                 case '+':
                     stack.push(left + right);
                     break;

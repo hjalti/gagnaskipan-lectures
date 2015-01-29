@@ -56,8 +56,7 @@ void print(NodePtr head) {
 
 }
 
-NodePtr search(NodePtr head, int target)
-{
+NodePtr search(NodePtr head, int target) {
     if (head == NULL) {
         return NULL;
     }
@@ -67,8 +66,7 @@ NodePtr search(NodePtr head, int target)
     return search(head->link, target);
 }
 
-void insert(NodePtr after_me, int data)
-{
+void insert(NodePtr after_me, int data) {
     NodePtr tmp_ptr;
     tmp_ptr = new Node;
     tmp_ptr->data = data;
@@ -77,8 +75,7 @@ void insert(NodePtr after_me, int data)
     after_me->link = tmp_ptr;
 }
 
-void head_remove(NodePtr& head)
-{
+void head_remove(NodePtr& head) {
     if(head == NULL) {
         return;
     }

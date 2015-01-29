@@ -2,10 +2,10 @@
 
 using namespace std;
 
-class IntQueue()
+class IntQueue
 {
     public:
-        // Initializes an empty stack.
+        // Initializes an empty queue.
         IntQueue();
 
         // Determines whether the queue is empty.
@@ -24,31 +24,26 @@ class IntQueue()
 
     private:
         //??
-}
+};
 
-IntQueue::IntQueue()
-{
-
-}
-
-
-bool IntQueue::empty()
-{
+IntQueue::IntQueue() {
 
 }
 
 
-void IntQueue::enqueue(int item)
-{
+bool IntQueue::empty() {
 
 }
 
-int IntQueue::dequeue()
-{
+
+void IntQueue::enqueue(int item) {
 
 }
 
-int IntQueue::front()
-{
+int IntQueue::dequeue() {
+
+}
+
+int IntQueue::front() {
 
 }

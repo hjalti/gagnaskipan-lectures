@@ -3,7 +3,9 @@
 
 using namespace std;
 
-class IntStack()
+class EmptyStackException { };
+
+class IntStack
 {
     public:
         // Initializes an empty stack.
@@ -27,29 +29,30 @@ class IntStack()
 };
 
 
-IntStack::IntStack()
-{
+IntStack::IntStack() {
     //empty;
 }
 
 
-bool IntStack::empty()
-{
+bool IntStack::empty() {
     return vec.empty();
 }
 
 
-void IntStack::push(int item)
-{
-    vec.push_back();
+void IntStack::push(int item) {
+    vec.push_back(item);
 }
 
-int IntStack::pop()
-{
-    return vec.pop_back();
+int IntStack::pop() {
+    if (empty()) {
+        throw EmptyStackException();
+    }
+
+    int top = vec.back();
+    vec.pop_back();
+    return top;
 }
 
-int IntStack::top()
-{
+int IntStack::top() {
     return vec[vec.size() - 1];
 }

@@ -4,7 +4,9 @@ using namespace std;
 
 const int INITIAL_CAPACITY = 50;
 
-class IntStack()
+class EmptyStackException { };
+
+class IntStack
 {
     public:
         // Initializes an empty stack.
@@ -34,15 +36,13 @@ class IntStack()
 
 		bool full() const;
 		void grow();
-}
+};
 
-bool IntStack::full() const
-{
+bool IntStack::full() const {
     return (count == capacity);
 }
 
-void IntStack::grow()
-{
+void IntStack::grow() {
     capacity *= 2;
     int *new_array = new int[capacity];
 
@@ -55,37 +55,34 @@ void IntStack::grow()
 }
 
 
-IntStack::IntStack()
-{
+IntStack::IntStack() {
     capacity = INITIAL_CAPACITY;
     array = new int[capacity];
     count = 0;
 }
 
 
-bool IntStack::empty()
-{
+bool IntStack::empty() {
     return (count == 0);
 }
 
 
-void IntStack::push(int item)
-{
-    if(full())
-    {
+void IntStack::push(int item) {
+    if(full()) {
         grow();
     }
-    array[count] = elem;
+    array[count] = item;
     count++;
 }
 
-int IntStack::pop()
-{
+int IntStack::pop() {
+    if (count == 0) {
+        throw EmptyStackException();
+    }
     count--;
     return array[count];
 }
 
-int IntStack::top()
-{
+int IntStack::top() {
     return array[count-1];
 }
