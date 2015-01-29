@@ -1,0 +1,227 @@
+\documentclass[11pt]{beamer}
+
+% This file is a solution template for:
+
+% - Talk at a conference/colloquium.
+% - Talk length is about 20min.
+% - Style is ornate.
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice.
+
+
+\mode<presentation>
+{
+    % \usetheme{JuanLesPins}
+    \usetheme{CambridgeUS}
+    % or ...
+
+    % \setbeamercovered{transparent}
+    % or whatever (possibly just delete it)
+}
+
+
+
+\usepackage[icelandic]{babel}
+% or whatever
+\selectlanguage{icelandic}
+
+\usepackage[latin1]{inputenc}
+% or whatever
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\newcommand{\perm}{{\mathfrak S}}
+\newcommand{\clpreim}{\texttt{ClassicalPreim}}
+\newcommand{\meshpreim}{\texttt{MeshPreim}}
+\renewcommand{\epsilon}{\varepsilon}
+
+
+\DeclareMathOperator{\Av}{Av}
+\DeclareMathOperator{\nil}{NULL}
+
+\lstset{
+    language=C++,
+    basicstyle = \small    \ttfamily,
+    keywordstyle = \color{blue},
+    stringstyle = \color{red},
+    commentstyle = \color{green},
+    showstringspaces = false,
+    tabsize = 3,
+    numbers = left,
+    frame=single,
+    captionpos=b
+}
+\newcommand{\cpp}{\lstinline}
+
+
+\title{Staflar og biðraðir}
+\subtitle{Gagnaskipan}
+%{Include Only If Paper Has a Subtitle}
+
+\author[Hjalti]{Hjalti Magnússon (\href{mailto:hjaltim@ru.is}{hjaltim@ru.is})}
+
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[Reykjavík University] % (optional, but mostly needed)
+{
+    \includegraphics[height=2cm]{rulogo}
+}
+
+\date{{\today}}
+% - Either use conference name or its abbreviation.
+% - Not really informative to the audience, more for people (including
+%   yourself) who are reading the slides online
+
+%\subject{Computer Science}
+% This is only inserted into the PDF information catalog. Can be left
+% out.
+
+%\pgfdeclareimage[height=1.5cm]{university-logo}{rulogo.PNG}
+%\logo{\pgfuseimage{university-logo}}
+
+%\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+%\setbeamerfont{itemize/enumerate subsubbody}{size=\small}
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+
+
+\DeclareMathOperator{\id}{id}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\section{Staflar}
+
+\begin{frame}{Staflar}
+    \begin{itemize}
+        \item Stafli (e. stack) er hugrænt gangatag sem geymir safn hluta og leyfir tvær aðgerir
+            \begin{itemize}
+                \item Push: Bætir staki "`efst"' á staflann
+                \item Pop: Fjarlægir "`efsta"' stakið á staflann
+            \end{itemize}
+        \item LIFO (Last In First Out)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Skil}
+    \begin{lstlisting}[title={Heiltölustafli}]
+class IntStack() {
+    // Initializes an empty stack.
+    IntStack();
+    // Determines whether the stack is empty.
+    bool empty();
+    // Adds 'item' to the top of the stack.
+    void push(int item);
+    // Removes the top of the stack (i.e. removes the element that was added
+    // most recently), and returns it.
+    int pop();
+    // Retrieves the top of the stack.
+    int top();
+};
+    \end{lstlisting}
+\end{frame}
+
+\section{Biðraðir}
+
+\begin{frame}{Staflar}
+    \begin{itemize}
+        \item Stafli (e. stack) er hugrænt gangatag sem geymir safn hluta og leyfir tvær aðgerir
+            \begin{itemize}
+                \item Enqueue: Bætir staki "`fremst"' í biðröðina
+                \item Dequeue: Fjarlægir "`síðasta"' stakið úr biðröðinni
+            \end{itemize}
+        \item FIFO (First In First Out)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+    \frametitle{Skil}
+    \begin{lstlisting}[title={Heiltölubiðröð}]
+class IntQueue() {
+    // Initializes an empty queue.
+    IntQueue();
+    // Determines whether the queue is empty.
+    bool empty();
+    // Inserts 'item' at the back of the queue.
+    void enqueue(int item);
+    // Removes and returns the front of the queue (i.e. the element that
+    // was enqueued earliest).
+    int dequeue();
+    // Returns the front of the queue.
+    int front();
+}
+    \end{lstlisting}
+\end{frame}
+
+\section{Notkun}
+
+\begin{frame}{Notkun}
+    \begin{itemize}
+        \item Biðraðir eru yfirleitt notaðar í þeim tilgangi
+            \begin{itemize}
+                \item Netsamskipti
+                \item Verkefnabiðröð (e. job queue)
+            \end{itemize}
+        \item Staflar eru notaðir í ýmislegt
+            \begin{itemize}
+                \item Minnismeðhöndlun
+                \item Hopun (e. backtracking) [Árangursrík forritun og launs verkefna]
+                \item Þáttun (e. parsing)
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Reverse polish Notation}
+    \begin{itemize}
+        \item Reverse Polish Notation (postfix notation)
+        \item Virkjar (e. operators) koma á eftir þolendum (e. opearand)
+    \end{itemize}
+    \begin{block}{RPN}
+        Eftirfarandi mállýsing (e. grammar) lýsir RPN
+        \begin{align*}
+            \textrm{Expr} &\Rightarrow \textrm{Num} \\
+            \textrm{Expr} &\Rightarrow \textrm{Expr} \ \ \textrm{Expr} \ \ \textrm{Op} \\
+            \textrm{Op} &\Rightarrow + \ | \ - \ | \ *
+        \end{align*}
+    \end{block}
+\end{frame}
+
+\begin{frame}{Reverse Polish Sausage}
+    \begin{center}
+    \includegraphics{rps}
+    \end{center}
+\end{frame}
+
+\end{document}
