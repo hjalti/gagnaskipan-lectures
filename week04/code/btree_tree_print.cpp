@@ -103,38 +103,23 @@ void print_tree(NodePtr tree, int level = 0)
     cout << ")" << endl;
 }
 
-// Prints the end symbol of a lisp-style representation of a tree. If the tree
-// is not a rightmost child, the end symbol is a newline character. Otherwise,
-// there is no end symbol (i.e., it is the empty string).
-void tree_end(bool right)
-{
-    if(!right) {
-        cout << endl;
-    }
-}
-
 // Print tree lisp-style
-void print_tree_lisp(NodePtr tree, int level = 0, bool right = false)
+void print_tree_lisp(NodePtr tree, int level = 0)
 {
     indent(level);
     if(tree == NULL) {
         cout << "()";
-        tree_end(right);
         return;
     }
-    // Print leaves as numbers inside brackets, but not
-    // with two empty children.
-    cout << "(" << tree->data;
     if(tree->is_leaf()) {
-        cout << ")";
-        tree_end(right);
-    } else {
-        cout << endl;
-        print_tree_lisp(tree->left, level + 1, false);
-        print_tree_lisp(tree->right, level + 1, true);
-        cout << ")";
-        tree_end(right);
+        cout << "(" << tree->data << ")";
+        return;
     }
+    cout << "(" << tree->data << endl;
+    print_tree_lisp(tree->left, level + 1);
+    cout << endl;
+    print_tree_lisp(tree->right, level + 1);
+    cout << ")";
 }
 
 int main()

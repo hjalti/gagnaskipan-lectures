@@ -12,16 +12,14 @@ struct TreeNode
 
 typedef TreeNode* NodePtr;
 
-NodePtr parse_tree()
-{
+NodePtr parse_tree() {
     char c;
     cin >> c; // Read (
 
     cin >> c; // Read next character
 
     // If the next character is ), this is the empty tree
-    if(c == ')')
-    {
+    if(c == ')') {
         return NULL;
     }
 
@@ -41,10 +39,8 @@ NodePtr parse_tree()
     return node;
 }
 
-void print_infix(NodePtr tree)
-{
-    if(tree == NULL)
-    {
+void print_infix(NodePtr tree) {
+    if(tree == NULL) {
         return;
     }
     print_infix(tree->left);
@@ -53,10 +49,8 @@ void print_infix(NodePtr tree)
 
 }
 
-void print_postfix(NodePtr tree)
-{
-    if(tree == NULL)
-    {
+void print_postfix(NodePtr tree) {
+    if(tree == NULL) {
         return;
     }
     print_postfix(tree->left);
@@ -65,10 +59,8 @@ void print_postfix(NodePtr tree)
 
 }
 
-void print_prefix(NodePtr tree)
-{
-    if(tree == NULL)
-    {
+void print_prefix(NodePtr tree) {
+    if(tree == NULL) {
         return;
     }
     cout << tree->data << " ";
@@ -77,8 +69,7 @@ void print_prefix(NodePtr tree)
 
 }
 
-int main()
-{
+int main() {
     NodePtr tree = parse_tree();
     print_infix(tree);
     cout << endl;
