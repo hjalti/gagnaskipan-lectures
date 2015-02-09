@@ -33,45 +33,37 @@ class IntSet
 };
 
 
-IntSet::IntSet(int max_capacity)
-{
+IntSet::IntSet(int max_capacity) {
     count = 0;
     array = new bool[max_capacity];
 
-    for(int i = 0; i < max_capacity; i++)
-    {
+    for(int i = 0; i < max_capacity; i++) {
         array[i] = false;
     }
 }
 
-IntSet::~IntSet()
-{
+IntSet::~IntSet() {
     delete [] array;
 }
 
-int IntSet::size()
-{
+int IntSet::size() {
     return count;
 }
 
-bool IntSet::contains(int item)
-{
+bool IntSet::contains(int item) {
     return array[item];
 }
 
-void IntSet::insert(int item)
-{
+void IntSet::insert(int item) {
     array[item] = true;
 }
 
-void IntSet::remove(int item)
-{
+void IntSet::remove(int item) {
     array[item] = false;
 }
 
 
-int main()
-{
+int main() {
     srand(1337);
 
     IntSet s(60000000);

@@ -32,14 +32,12 @@ class IntSet
 
 IntSet::IntSet() { }
 
-int IntSet::size()
-{
+int IntSet::size() {
     return lis.size();
 }
 
 
-bool IntSet::contains(int item)
-{
+bool IntSet::contains(int item) {
     for(list<int>::iterator it = lis.begin(); it != lis.end(); ++it) {
         if(*it == item) {
             return true;
@@ -48,19 +46,16 @@ bool IntSet::contains(int item)
     return false;
 }
 
-void IntSet::insert(int item)
-{
+void IntSet::insert(int item) {
     lis.push_back(item);
 }
 
-void IntSet::remove(int item)
-{
+void IntSet::remove(int item) {
     lis.remove(item);
 }
 
 
-int main()
-{
+int main() {
     srand(1337);
 
     IntSet s;

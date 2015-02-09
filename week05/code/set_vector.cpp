@@ -34,13 +34,11 @@ class IntSet
 
 IntSet::IntSet() { }
 
-int IntSet::size()
-{
+int IntSet::size() {
     return vec.size();
 }
 
-int IntSet::index(int item)
-{
+int IntSet::index(int item) {
     for(size_t i = 0; i != vec.size(); i++) {
         if(vec[i] == item) {
             return i;
@@ -49,18 +47,15 @@ int IntSet::index(int item)
     return -1;
 }
 
-bool IntSet::contains(int item)
-{
+bool IntSet::contains(int item) {
     return (index(item) != -1);
 }
 
-void IntSet::insert(int item)
-{
+void IntSet::insert(int item) {
     vec.push_back(item);
 }
 
-void IntSet::remove(int item)
-{
+void IntSet::remove(int item) {
     int ind = index(item);
     while(ind != -1) {
         vec.erase(vec.begin() + ind);
@@ -69,8 +64,7 @@ void IntSet::remove(int item)
 }
 
 
-int main()
-{
+int main() {
     srand(1337);
 
     IntSet s;

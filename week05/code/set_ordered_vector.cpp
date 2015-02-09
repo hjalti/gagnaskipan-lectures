@@ -36,27 +36,23 @@ class IntSet
 
 IntSet::IntSet() { }
 
-int IntSet::size()
-{
+int IntSet::size() {
     return vec.size();
 }
 
-bool IntSet::empty()
-{
+bool IntSet::empty() {
     return size() == 0;
 }
 
 // Returns true if and only if 'item' is present at 'index' in vector.
-bool IntSet::item_present(int index, int item)
-{
+bool IntSet::item_present(int index, int item) {
     return index != size() && vec[index] == item;
 }
 
 // Returns the index before which 'item' should be inserted, in order to
 // maintain the strict increasing order of vec.
 // If 'item' is in vec, then the index of 'item' is returned.
-int IntSet::insertion_index(int item)
-{
+int IntSet::insertion_index(int item) {
     for(size_t i = 0; i < vec.size(); i++) {
         if(vec[i] >= item) {
             return i;
@@ -65,22 +61,19 @@ int IntSet::insertion_index(int item)
     return vec.size();
 }
 
-bool IntSet::contains(int item)
-{
+bool IntSet::contains(int item) {
     int ind = insertion_index(item);
     return item_present(ind, item);
 }
 
-void IntSet::insert(int item)
-{
+void IntSet::insert(int item) {
     int ind = insertion_index(item);
     if(!item_present(ind, item)) {
         vec.insert(vec.begin() + ind, item);
     }
 }
 
-void IntSet::remove(int item)
-{
+void IntSet::remove(int item) {
     int ind = insertion_index(item);
     if(item_present(ind, item)) {
         vec.erase(vec.begin() + ind);
@@ -88,8 +81,7 @@ void IntSet::remove(int item)
 }
 
 
-int main()
-{
+int main() {
     srand(1337);
 
     IntSet s;
