@@ -1,0 +1,66 @@
+==8962== Memcheck, a memory error detector
+==8962== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==8962== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
+==8962== Command: ./a.out
+==8962== 
+==8962== Invalid read of size 4
+==8962==    at 0x400AC1: IntStack::top() (invalid_read_deleted.cpp:91)
+==8962==    by 0x400B24: main (invalid_read_deleted.cpp:100)
+==8962==  Address 0x5a030e0 is 0 bytes inside a block of size 16 free'd
+==8962==    at 0x4C2B6D0: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8962==    by 0x40099E: IntStack::clear() (invalid_read_deleted.cpp:56)
+==8962==    by 0x400B18: main (invalid_read_deleted.cpp:99)
+==8962== 
+==8962== Invalid read of size 4
+==8962==    at 0x400A4F: IntStack::pop() (invalid_read_deleted.cpp:79)
+==8962==    by 0x400B30: main (invalid_read_deleted.cpp:101)
+==8962==  Address 0x5a030e0 is 0 bytes inside a block of size 16 free'd
+==8962==    at 0x4C2B6D0: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8962==    by 0x40099E: IntStack::clear() (invalid_read_deleted.cpp:56)
+==8962==    by 0x400B18: main (invalid_read_deleted.cpp:99)
+==8962== 
+==8962== Invalid read of size 8
+==8962==    at 0x400A66: IntStack::pop() (invalid_read_deleted.cpp:81)
+==8962==    by 0x400B30: main (invalid_read_deleted.cpp:101)
+==8962==  Address 0x5a030e8 is 8 bytes inside a block of size 16 free'd
+==8962==    at 0x4C2B6D0: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8962==    by 0x40099E: IntStack::clear() (invalid_read_deleted.cpp:56)
+==8962==    by 0x400B18: main (invalid_read_deleted.cpp:99)
+==8962== 
+==8962== Invalid free() / delete / delete[] / realloc()
+==8962==    at 0x4C2B6D0: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8962==    by 0x400A7C: IntStack::pop() (invalid_read_deleted.cpp:82)
+==8962==    by 0x400B30: main (invalid_read_deleted.cpp:101)
+==8962==  Address 0x5a030e0 is 0 bytes inside a block of size 16 free'd
+==8962==    at 0x4C2B6D0: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8962==    by 0x40099E: IntStack::clear() (invalid_read_deleted.cpp:56)
+==8962==    by 0x400B18: main (invalid_read_deleted.cpp:99)
+==8962== 
+==8962== Invalid read of size 8
+==8962==    at 0x40098B: IntStack::clear() (invalid_read_deleted.cpp:55)
+==8962==    by 0x400963: IntStack::~IntStack() (invalid_read_deleted.cpp:48)
+==8962==    by 0x400B41: main (invalid_read_deleted.cpp:102)
+==8962==  Address 0x5a03098 is 8 bytes inside a block of size 16 free'd
+==8962==    at 0x4C2B6D0: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8962==    by 0x40099E: IntStack::clear() (invalid_read_deleted.cpp:56)
+==8962==    by 0x400B18: main (invalid_read_deleted.cpp:99)
+==8962== 
+==8962== Invalid free() / delete / delete[] / realloc()
+==8962==    at 0x4C2B6D0: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8962==    by 0x40099E: IntStack::clear() (invalid_read_deleted.cpp:56)
+==8962==    by 0x400963: IntStack::~IntStack() (invalid_read_deleted.cpp:48)
+==8962==    by 0x400B41: main (invalid_read_deleted.cpp:102)
+==8962==  Address 0x5a03090 is 0 bytes inside a block of size 16 free'd
+==8962==    at 0x4C2B6D0: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8962==    by 0x40099E: IntStack::clear() (invalid_read_deleted.cpp:56)
+==8962==    by 0x400B18: main (invalid_read_deleted.cpp:99)
+==8962== 
+==8962== 
+==8962== HEAP SUMMARY:
+==8962==     in use at exit: 0 bytes in 0 blocks
+==8962==   total heap usage: 3 allocs, 6 frees, 48 bytes allocated
+==8962== 
+==8962== All heap blocks were freed -- no leaks are possible
+==8962== 
+==8962== For counts of detected and suppressed errors, rerun with: -v
+==8962== ERROR SUMMARY: 8 errors from 6 contexts (suppressed: 0 from 0)

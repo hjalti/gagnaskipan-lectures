@@ -1,0 +1,30 @@
+==8994== Memcheck, a memory error detector
+==8994== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==8994== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
+==8994== Command: ./a.out
+==8994== 
+==8994== Mismatched free() / delete / delete []
+==8994==    at 0x4C2B6D0: operator delete(void*) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8994==    by 0x4007A7: main (rare.cpp:7)
+==8994==  Address 0x5a03040 is 0 bytes inside a block of size 12 alloc'd
+==8994==    at 0x4C2AC10: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8994==    by 0x400797: main (rare.cpp:6)
+==8994== 
+==8994== Argument 'size' of function __builtin_vec_new has a fishy (possibly negative) value: -1
+==8994==    at 0x4C2AC10: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8994==    by 0x4007B3: main (rare.cpp:8)
+==8994== 
+**8994** new/new[] failed and should throw an exception, but Valgrind
+**8994**    cannot throw exceptions and so is aborting instead.  Sorry.
+==8994==    at 0x4C29D6C: ??? (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8994==    by 0x4C2AC85: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8994==    by 0x4007B3: main (rare.cpp:8)
+==8994== 
+==8994== HEAP SUMMARY:
+==8994==     in use at exit: 0 bytes in 0 blocks
+==8994==   total heap usage: 1 allocs, 1 frees, 12 bytes allocated
+==8994== 
+==8994== All heap blocks were freed -- no leaks are possible
+==8994== 
+==8994== For counts of detected and suppressed errors, rerun with: -v
+==8994== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)

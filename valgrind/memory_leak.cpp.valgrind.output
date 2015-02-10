@@ -1,0 +1,24 @@
+==8981== Memcheck, a memory error detector
+==8981== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==8981== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
+==8981== Command: ./a.out
+==8981== 
+==8981== 
+==8981== HEAP SUMMARY:
+==8981==     in use at exit: 64 bytes in 4 blocks
+==8981==   total heap usage: 4 allocs, 0 frees, 64 bytes allocated
+==8981== 
+==8981== 64 (16 direct, 48 indirect) bytes in 1 blocks are definitely lost in loss record 4 of 4
+==8981==    at 0x4C2A4F0: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8981==    by 0x4009D4: IntStack::push(int) (memory_leak.cpp:67)
+==8981==    by 0x400B19: main (memory_leak.cpp:99)
+==8981== 
+==8981== LEAK SUMMARY:
+==8981==    definitely lost: 16 bytes in 1 blocks
+==8981==    indirectly lost: 48 bytes in 3 blocks
+==8981==      possibly lost: 0 bytes in 0 blocks
+==8981==    still reachable: 0 bytes in 0 blocks
+==8981==         suppressed: 0 bytes in 0 blocks
+==8981== 
+==8981== For counts of detected and suppressed errors, rerun with: -v
+==8981== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

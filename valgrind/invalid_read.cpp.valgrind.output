@@ -1,0 +1,65 @@
+==8953== Memcheck, a memory error detector
+==8953== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==8953== Using Valgrind-3.10.1 and LibVEX; rerun with -h for copyright info
+==8953== Command: ./a.out
+==8953== 
+Assigning value to arr[5]
+Assigning value to arr[6]
+Assigning value to arr[7]
+Assigning value to arr[8]
+Assigning value to arr[9]
+==8953== Invalid write of size 4
+==8953==    at 0x40094C: main (invalid_read.cpp:8)
+==8953==  Address 0x5a03068 is 0 bytes after a block of size 40 alloc'd
+==8953==    at 0x4C2AC10: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8953==    by 0x400927: main (invalid_read.cpp:6)
+==8953== 
+Assigning value to arr[10]
+==8953== Invalid read of size 4
+==8953==    at 0x4009AE: main (invalid_read.cpp:12)
+==8953==  Address 0x5a0303c is 4 bytes before a block of size 40 alloc'd
+==8953==    at 0x4C2AC10: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==8953==    by 0x400927: main (invalid_read.cpp:6)
+==8953== 
+arr[-1]: 0
+==8953== Use of uninitialised value of size 8
+==8953==    at 0x4EC1EA3: int std::__int_to_char<char, unsigned long>(char*, unsigned long, char const*, std::_Ios_Fmtflags, bool) (in /usr/lib/libstdc++.so.6.0.20)
+==8953==    by 0x4EC1FDB: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/libstdc++.so.6.0.20)
+==8953==    by 0x4EC255C: std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::do_put(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/libstdc++.so.6.0.20)
+==8953==    by 0x4ECFF19: std::ostream& std::ostream::_M_insert<long>(long) (in /usr/lib/libstdc++.so.6.0.20)
+==8953==    by 0x4009EE: main (invalid_read.cpp:13)
+==8953== 
+==8953== Conditional jump or move depends on uninitialised value(s)
+==8953==    at 0x4EC1EAF: int std::__int_to_char<char, unsigned long>(char*, unsigned long, char const*, std::_Ios_Fmtflags, bool) (in /usr/lib/libstdc++.so.6.0.20)
+==8953==    by 0x4EC1FDB: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/libstdc++.so.6.0.20)
+==8953==    by 0x4EC255C: std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::do_put(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/libstdc++.so.6.0.20)
+==8953==    by 0x4ECFF19: std::ostream& std::ostream::_M_insert<long>(long) (in /usr/lib/libstdc++.so.6.0.20)
+==8953==    by 0x4009EE: main (invalid_read.cpp:13)
+==8953== 
+==8953== Conditional jump or move depends on uninitialised value(s)
+==8953==    at 0x4EC2004: std::ostreambuf_iterator<char, std::char_traits<char> > std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::_M_insert_int<long>(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/libstdc++.so.6.0.20)
+==8953==    by 0x4EC255C: std::num_put<char, std::ostreambuf_iterator<char, std::char_traits<char> > >::do_put(std::ostreambuf_iterator<char, std::char_traits<char> >, std::ios_base&, char, long) const (in /usr/lib/libstdc++.so.6.0.20)
+==8953==    by 0x4ECFF19: std::ostream& std::ostream::_M_insert<long>(long) (in /usr/lib/libstdc++.so.6.0.20)
+==8953==    by 0x4009EE: main (invalid_read.cpp:13)
+==8953== 
+arr[0]: 0
+arr[1]: 0
+arr[2]: 0
+arr[3]: 0
+arr[4]: 0
+arr[5]: 5
+arr[6]: 6
+arr[7]: 7
+arr[8]: 8
+arr[9]: 9
+arr[10]: 10
+==8953== 
+==8953== HEAP SUMMARY:
+==8953==     in use at exit: 0 bytes in 0 blocks
+==8953==   total heap usage: 1 allocs, 1 frees, 40 bytes allocated
+==8953== 
+==8953== All heap blocks were freed -- no leaks are possible
+==8953== 
+==8953== For counts of detected and suppressed errors, rerun with: -v
+==8953== Use --track-origins=yes to see where uninitialised values come from
+==8953== ERROR SUMMARY: 18 errors from 5 contexts (suppressed: 0 from 0)
