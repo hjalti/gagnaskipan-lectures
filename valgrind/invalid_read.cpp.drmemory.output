@@ -1,0 +1,84 @@
+Dr. Memory version 1.8.0 build 8 built on Sep  9 2014 16:27:02
+Dr. Memory results for pid 10588: "invalid_read.exe"
+Application cmdline: "C:\Users\Lenovo\Desktop\gagnaskipan-lectures\valgrind\invalid_read.exe"
+Recorded 108 suppression(s) from default C:\Program Files (x86)\Dr. Memory\bin\suppress-default.txt
+
+Error #1: UNADDRESSABLE ACCESS beyond heap bounds: writing 0x00ee7730-0x00ee7734 4 byte(s)
+# 0 main               [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read.cpp:8]
+Note: @0:00:00.443 in thread 11444
+Note: refers to 0 byte(s) beyond last valid byte in prior malloc
+Note: prev lower malloc:  0x00ee7708-0x00ee7730
+Note: instruction: mov    %eax -> (%edx)
+
+Error #2: UNADDRESSABLE ACCESS beyond heap bounds: reading 0x00ee7704-0x00ee7708 4 byte(s)
+# 0 main               [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read.cpp:12]
+Note: @0:00:00.452 in thread 11444
+Note: next higher malloc: 0x00ee7708-0x00ee7730
+Note: prev lower malloc:  0x00ee7610-0x00ee76e8
+Note: instruction: mov    (%eax) -> %eax
+
+Error #3: UNINITIALIZED READ: reading register edi
+# 0 std::num_put<>::_M_insert_int<>               [../../../../src/gcc-4.7.1/libgcc/../libgcc/config/i386/shmem-win32.c:98]
+# 1 std::num_put<>::do_put                        [../../../../src/gcc-4.7.1/libgcc/../libgcc/config/i386/shmem-win32.c:98]
+# 2 __mingw_CRTStartup
+# 3 ntdll.dll!RtlInitializeExceptionChain        +0x62     (0x77c19f72 <ntdll.dll+0x39f72>)
+# 4 ntdll.dll!RtlInitializeExceptionChain        +0x35     (0x77c19f45 <ntdll.dll+0x39f45>)
+Note: @0:00:00.478 in thread 11444
+Note: instruction: test   %edi %edi
+
+Error #4: UNINITIALIZED READ: reading register ecx
+# 0 std::__int_to_char<>                          [../../../../src/gcc-4.7.1/libgcc/../libgcc/config/i386/shmem-win32.c:98]
+# 1 std::num_put<>::_M_insert_int<>               [../../../../src/gcc-4.7.1/libgcc/../libgcc/config/i386/shmem-win32.c:98]
+# 2 std::num_put<>::do_put                        [../../../../src/gcc-4.7.1/libgcc/../libgcc/config/i386/shmem-win32.c:98]
+# 3 __mingw_CRTStartup
+# 4 ntdll.dll!RtlInitializeExceptionChain        +0x62     (0x77c19f72 <ntdll.dll+0x39f72>)
+# 5 ntdll.dll!RtlInitializeExceptionChain        +0x35     (0x77c19f45 <ntdll.dll+0x39f45>)
+Note: @0:00:00.479 in thread 11444
+Note: instruction: mov    0x04(%esi,%ecx,1) -> %cl
+
+Error #5: UNINITIALIZED READ: reading register edx
+# 0 std::__int_to_char<>                          [../../../../src/gcc-4.7.1/libgcc/../libgcc/config/i386/shmem-win32.c:98]
+# 1 std::num_put<>::_M_insert_int<>               [../../../../src/gcc-4.7.1/libgcc/../libgcc/config/i386/shmem-win32.c:98]
+# 2 std::num_put<>::do_put                        [../../../../src/gcc-4.7.1/libgcc/../libgcc/config/i386/shmem-win32.c:98]
+# 3 __mingw_CRTStartup
+# 4 ntdll.dll!RtlInitializeExceptionChain        +0x62     (0x77c19f72 <ntdll.dll+0x39f72>)
+# 5 ntdll.dll!RtlInitializeExceptionChain        +0x35     (0x77c19f45 <ntdll.dll+0x39f45>)
+Note: @0:00:00.481 in thread 11444
+Note: instruction: test   %edx %edx
+
+Error #6: UNINITIALIZED READ: reading register edi
+# 0 std::num_put<>::_M_insert_int<>               [../../../../src/gcc-4.7.1/libgcc/../libgcc/config/i386/shmem-win32.c:98]
+# 1 std::num_put<>::do_put                        [../../../../src/gcc-4.7.1/libgcc/../libgcc/config/i386/shmem-win32.c:98]
+# 2 __mingw_CRTStartup
+# 3 ntdll.dll!RtlInitializeExceptionChain        +0x62     (0x77c19f72 <ntdll.dll+0x39f72>)
+# 4 ntdll.dll!RtlInitializeExceptionChain        +0x35     (0x77c19f45 <ntdll.dll+0x39f45>)
+Note: @0:00:00.482 in thread 11444
+Note: instruction: test   %edi %edi
+
+===========================================================================
+FINAL SUMMARY:
+
+DUPLICATE ERROR COUNTS:
+	Error #   2:      2
+	Error #   3:      5
+	Error #   4:      5
+	Error #   5:      5
+	Error #   6:      5
+
+SUPPRESSIONS USED:
+
+ERRORS FOUND:
+      2 unique,     3 total unaddressable access(es)
+      4 unique,    20 total uninitialized access(es)
+      0 unique,     0 total invalid heap argument(s)
+      0 unique,     0 total GDI usage error(s)
+      0 unique,     0 total handle leak(s)
+      0 unique,     0 total warning(s)
+      0 unique,     0 total,      0 byte(s) of leak(s)
+      0 unique,     0 total,      0 byte(s) of possible leak(s)
+ERRORS IGNORED:
+      1 potential error(s) (suspected false positives)
+         (details: C:\Users\Lenovo\AppData\Roaming\Dr. Memory\DrMemory-invalid_read.exe.10588.000\potential_errors.txt)
+      0 unique,     0 total,      0 byte(s) of still-reachable allocation(s)
+         (re-run with "-show_reachable" for details)
+Details: C:\Users\Lenovo\AppData\Roaming\Dr. Memory\DrMemory-invalid_read.exe.10588.000\results.txt

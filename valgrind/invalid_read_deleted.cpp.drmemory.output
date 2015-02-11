@@ -1,0 +1,97 @@
+Dr. Memory version 1.8.0 build 8 built on Sep  9 2014 16:27:02
+Dr. Memory results for pid 5412: "invalid_read_deleted.exe"
+Application cmdline: "C:\Users\Lenovo\Desktop\gagnaskipan-lectures\valgrind\invalid_read_deleted.exe"
+Recorded 108 suppression(s) from default C:\Program Files (x86)\Dr. Memory\bin\suppress-default.txt
+
+Error #1: UNADDRESSABLE ACCESS of freed memory: reading 0x01077778-0x0107777c 4 byte(s)
+# 0 IntStack::top               [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:91]
+# 1 main                        [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:100]
+Note: @0:00:00.374 in thread 10144
+Note: prev lower malloc:  0x01077630-0x01077708
+Note: 0x01077778-0x0107777c overlaps memory 0x01077778-0x01077780 that was freed here:
+Note: # 0 replace_operator_delete               [d:\drmemory_package\common\alloc_replace.c:2684]
+Note: # 1 IntStack::clear                       [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:56]
+Note: # 2 main                                  [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:99]
+Note: instruction: mov    (%eax) -> %eax
+
+Error #2: UNADDRESSABLE ACCESS of freed memory: reading 0x01077778-0x0107777c 4 byte(s)
+# 0 IntStack::pop               [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:79]
+# 1 main                        [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:101]
+Note: @0:00:00.394 in thread 10144
+Note: prev lower malloc:  0x01077630-0x01077708
+Note: 0x01077778-0x0107777c overlaps memory 0x01077778-0x01077780 that was freed here:
+Note: # 0 replace_operator_delete               [d:\drmemory_package\common\alloc_replace.c:2684]
+Note: # 1 IntStack::clear                       [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:56]
+Note: # 2 main                                  [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:99]
+Note: instruction: mov    (%eax) -> %eax
+
+Error #3: UNADDRESSABLE ACCESS of freed memory: reading 0x0107777c-0x01077780 4 byte(s)
+# 0 IntStack::pop               [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:81]
+# 1 main                        [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:101]
+Note: @0:00:00.395 in thread 10144
+Note: prev lower malloc:  0x01077630-0x01077708
+Note: 0x0107777c-0x01077780 overlaps memory 0x01077778-0x01077780 that was freed here:
+Note: # 0 replace_operator_delete               [d:\drmemory_package\common\alloc_replace.c:2684]
+Note: # 1 IntStack::clear                       [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:56]
+Note: # 2 main                                  [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:99]
+Note: instruction: mov    0x04(%eax) -> %edx
+
+Error #4: INVALID HEAP ARGUMENT to free 0x01077778
+# 0 replace_operator_delete               [d:\drmemory_package\common\alloc_replace.c:2684]
+# 1 IntStack::pop                         [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:82]
+# 2 main                                  [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:101]
+Note: @0:00:00.396 in thread 10144
+Note: prev lower malloc:  0x01077630-0x01077708
+Note: memory was previously freed here:
+Note: # 0 replace_operator_delete               [d:\drmemory_package\common\alloc_replace.c:2684]
+Note: # 1 IntStack::clear                       [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:56]
+Note: # 2 main                                  [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:99]
+
+Error #5: UNADDRESSABLE ACCESS of freed memory: reading 0x01077754-0x01077758 4 byte(s)
+# 0 IntStack::clear                   [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:55]
+# 1 IntStack::~IntStack               [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:48]
+# 2 main                              [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:102]
+Note: @0:00:00.403 in thread 10144
+Note: prev lower malloc:  0x01077630-0x01077708
+Note: 0x01077754-0x01077758 overlaps memory 0x01077750-0x01077758 that was freed here:
+Note: # 0 replace_operator_delete               [d:\drmemory_package\common\alloc_replace.c:2684]
+Note: # 1 IntStack::clear                       [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:56]
+Note: # 2 main                                  [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:99]
+Note: instruction: mov    0x04(%eax) -> %eax
+
+Error #6: INVALID HEAP ARGUMENT to free 0x01077750
+# 0 replace_operator_delete               [d:\drmemory_package\common\alloc_replace.c:2684]
+# 1 IntStack::clear                       [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:56]
+# 2 IntStack::~IntStack                   [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:48]
+# 3 main                                  [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:102]
+Note: @0:00:00.410 in thread 10144
+Note: prev lower malloc:  0x01077630-0x01077708
+Note: memory was previously freed here:
+Note: # 0 replace_operator_delete               [d:\drmemory_package\common\alloc_replace.c:2684]
+Note: # 1 IntStack::clear                       [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:56]
+Note: # 2 main                                  [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_deleted.cpp:99]
+
+===========================================================================
+FINAL SUMMARY:
+
+DUPLICATE ERROR COUNTS:
+	Error #   5:      2
+	Error #   6:      2
+
+SUPPRESSIONS USED:
+
+ERRORS FOUND:
+      4 unique,     5 total unaddressable access(es)
+      0 unique,     0 total uninitialized access(es)
+      2 unique,     3 total invalid heap argument(s)
+      0 unique,     0 total GDI usage error(s)
+      0 unique,     0 total handle leak(s)
+      0 unique,     0 total warning(s)
+      0 unique,     0 total,      0 byte(s) of leak(s)
+      0 unique,     0 total,      0 byte(s) of possible leak(s)
+ERRORS IGNORED:
+      1 potential error(s) (suspected false positives)
+         (details: C:\Users\Lenovo\AppData\Roaming\Dr. Memory\DrMemory-invalid_read_deleted.exe.5412.000\potential_errors.txt)
+      0 unique,     0 total,      0 byte(s) of still-reachable allocation(s)
+         (re-run with "-show_reachable" for details)
+Details: C:\Users\Lenovo\AppData\Roaming\Dr. Memory\DrMemory-invalid_read_deleted.exe.5412.000\results.txt

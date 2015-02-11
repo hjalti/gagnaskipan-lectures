@@ -1,0 +1,32 @@
+Dr. Memory version 1.8.0 build 8 built on Sep  9 2014 16:27:02
+Dr. Memory results for pid 11424: "memory_leak.exe"
+Application cmdline: "C:\Users\Lenovo\Desktop\gagnaskipan-lectures\valgrind\memory_leak.exe"
+Recorded 108 suppression(s) from default C:\Program Files (x86)\Dr. Memory\bin\suppress-default.txt
+
+Error #1: LEAK 8 direct bytes 0x00e27780-0x00e27788 + 24 indirect bytes
+# 0 replace_operator_new               [d:\drmemory_package\common\alloc_replace.c:2609]
+# 1 IntStack::push                     [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/memory_leak.cpp:67]
+# 2 main                               [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/memory_leak.cpp:99]
+
+===========================================================================
+FINAL SUMMARY:
+
+DUPLICATE ERROR COUNTS:
+
+SUPPRESSIONS USED:
+
+ERRORS FOUND:
+      0 unique,     0 total unaddressable access(es)
+      0 unique,     0 total uninitialized access(es)
+      0 unique,     0 total invalid heap argument(s)
+      0 unique,     0 total GDI usage error(s)
+      0 unique,     0 total handle leak(s)
+      0 unique,     0 total warning(s)
+      1 unique,     1 total,     32 byte(s) of leak(s)
+      0 unique,     0 total,      0 byte(s) of possible leak(s)
+ERRORS IGNORED:
+      1 potential error(s) (suspected false positives)
+         (details: C:\Users\Lenovo\AppData\Roaming\Dr. Memory\DrMemory-memory_leak.exe.11424.000\potential_errors.txt)
+      0 unique,     0 total,      0 byte(s) of still-reachable allocation(s)
+         (re-run with "-show_reachable" for details)
+Details: C:\Users\Lenovo\AppData\Roaming\Dr. Memory\DrMemory-memory_leak.exe.11424.000\results.txt
