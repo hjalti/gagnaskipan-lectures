@@ -1,0 +1,192 @@
+\documentclass[11pt]{beamer}
+
+% This file is a solution template for:
+
+% - Talk at a conference/colloquium.
+% - Talk length is about 20min.
+% - Style is ornate.
+
+% Copyright 2004 by Till Tantau <tantau@users.sourceforge.net>.
+%
+% In principle, this file can be redistributed and/or modified under
+% the terms of the GNU Public License, version 2.
+%
+% However, this file is supposed to be a template to be modified
+% for your own needs. For this reason, if you use this file as a
+% template and not specifically distribute it as part of a another
+% package/program, I grant the extra permission to freely copy and
+% modify this file as you see fit and even to delete this copyright
+% notice.
+
+
+\mode<presentation>
+{
+    % \usetheme{JuanLesPins}
+    \usetheme{CambridgeUS}
+    % or ...
+
+    % \setbeamercovered{transparent}
+    % or whatever (possibly just delete it)
+}
+
+
+
+\usepackage[icelandic]{babel}
+% or whatever
+\selectlanguage{icelandic}
+
+\usepackage[latin1]{inputenc}
+% or whatever
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{cancel}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{listings}
+
+\newcommand{\perm}{{\mathfrak S}}
+\newcommand{\clpreim}{\texttt{ClassicalPreim}}
+\newcommand{\meshpreim}{\texttt{MeshPreim}}
+\renewcommand{\epsilon}{\varepsilon}
+
+
+\DeclareMathOperator{\Av}{Av}
+
+\lstset{
+    language=C++,
+    basicstyle = \small    \ttfamily,
+    keywordstyle = \color{blue},
+    stringstyle = \color{red},
+    commentstyle = \color{green},
+    showstringspaces = false,
+    tabsize = 3,
+    numbers = left,
+    frame=single,
+    captionpos=b
+}
+\newcommand{\cpp}{\lstinline}
+
+
+\title{Valgrind}
+\subtitle{Gagnaskipan 2015}
+%{Include Only If Paper Has a Subtitle}
+
+\author[Hjalti]{Hjalti Magnússon (\href{mailto:hjaltim@ru.is}{hjaltim@ru.is})}
+
+% - Give the names in the same order as the appear in the paper.
+% - Use the \inst{?} command only if the authors have different
+%   affiliation.
+
+\institute[Reykjavík University] % (optional, but mostly needed)
+{
+    \includegraphics[height=2cm]{rulogo}
+}
+
+\date{{\today}}
+% - Either use conference name or its abbreviation.
+% - Not really informative to the audience, more for people (including
+%   yourself) who are reading the slides online
+
+%\subject{Computer Science}
+% This is only inserted into the PDF information catalog. Can be left
+% out. 
+
+%\pgfdeclareimage[height=1.5cm]{university-logo}{rulogo.PNG}
+%\logo{\pgfuseimage{university-logo}}
+
+%\setbeamerfont{itemize/enumerate body}{size=\normalsize}
+\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
+%\setbeamerfont{itemize/enumerate subsubbody}{size=\small}
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+% \AtBeginSection[]
+% {
+%     \begin{frame}<beamer>{Yfirlit}
+%         \tableofcontents[currentsection,currentsubsection]
+%     \end{frame}
+% }
+
+% \AtBeginSubsection[]
+% {
+%     \begin{frame}<beamer>{Yfirlit}
+%         \tableofcontents[currentsection,currentsubsection]
+%     \end{frame}
+% }
+
+\DeclareMathOperator{\id}{id}
+
+
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{Algengustu villur}
+    \begin{itemize}
+        \item Invalid read/write
+        \item Conditional jump or move depends on uninitialised value(s)
+        \item Invalid free()
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Invalid read/write}
+    \begin{itemize}
+        \item Invalid read/write: Verið er að lesa úr (skrifa í) minni sem forritið hefur ekki aðgang að.
+        \item Þrennt kemur til greina
+            \begin{itemize}
+                \item Forritið hefur lesið (skrifað) út fyrir löglegt minni (t.d. vísað út fyrir fylki)
+                \item Forritið hefur lesið úr (skrifað í) \cpp|NULL|
+                \item Forritið hefur lesið úr (skrifað í) minni sem búið var að skila með \cpp|delete|
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Conditional jump or move depends on uninitialised value(s)}
+    \begin{itemize}
+        \item Forritið notar ófrumstillta breytu inni í skilyrði í if-setningu eða lykkju
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Invalid free()}
+    \begin{itemize}
+        \item Forritið skilaði minni (með \cpp|delete|) sem það hafði ekki aðgang að
+        \item Langalgengasta orsök: verið er að skila sama minni tvisvar
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Sjaldgæfari villur}
+    \begin{itemize}
+        \item Mismatched free() / delete / delete []
+        \item Argument `size' of function malloc has a fishy (possibly negative) value
+            \begin{itemize}
+                \item Mooshak er með eldri útgáfu af Valgrind
+                \item Warning: silly arg (-4) to \_\_builtin\_vec\_new()
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Mismatched free() / delete / delete []}
+    \begin{itemize}
+        \item Forritið kallar á \cpp|delete []| þegar það ætti að kalla á \cpp|delete| eða öfugt
+        \item T.d. þegar fylki er skilað með \cpp|delete| en ekki \cpp|delete []|
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Argument `size' of function malloc has a fishy value}
+    \begin{itemize}
+        \item Forritið kallar á \cpp|new| með einkennilegri (oftast neikværði) tölu
+    \end{itemize}
+\end{frame}
+
+\end{document}
