@@ -142,7 +142,7 @@
 
 \begin{frame}{Invalid read/write}
     \begin{itemize}
-        \item Invalid read/write: Verið er að lesa úr (skrifa í) minni sem forritið hefur ekki aðgang að.
+        \item Forritið les úr (skrifa í) minni sem það hefur ekki aðgang að
         \item Þrennt kemur til greina
             \begin{itemize}
                 \item Forritið hefur lesið (skrifað) út fyrir löglegt minni (t.d. vísað út fyrir fylki)
@@ -188,5 +188,17 @@
         \item Forritið kallar á \cpp|new| með einkennilegri (oftast neikværði) tölu
     \end{itemize}
 \end{frame}
+
+\begin{frame}{Minnisleki}
+    \begin{itemize}
+        \item ?? bytes in ?? blocks are definately lost
+        \item Forritið tekur frá minni (með \cpp|new|) sem það skilar ekki (með \cpp|delete|)
+            \begin{itemize}
+                \item Valgrind sýnir aðeins hvar minnið var tekið frá
+                \item Valgrind veit ekki hvar minninu átti að vera skilað!
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
 
 \end{document}
