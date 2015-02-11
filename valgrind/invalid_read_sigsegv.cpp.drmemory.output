@@ -1,0 +1,33 @@
+Dr. Memory version 1.8.0 build 8 built on Sep  9 2014 16:27:02
+Dr. Memory results for pid 3464: "invalid_read_sigsegv.exe"
+Application cmdline: "C:\Users\Lenovo\Desktop\gagnaskipan-lectures\valgrind\invalid_read_sigsegv.exe"
+Recorded 108 suppression(s) from default C:\Program Files (x86)\Dr. Memory\bin\suppress-default.txt
+
+Error #1: UNADDRESSABLE ACCESS: reading 0x00000000-0x00000004 4 byte(s)
+# 0 IntStack::pop               [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_sigsegv.cpp:77]
+# 1 main                        [C:/Users/Lenovo/Desktop/gagnaskipan-lectures/valgrind/invalid_read_sigsegv.cpp:91]
+Note: @0:00:00.376 in thread 11920
+Note: instruction: mov    (%eax) -> %eax
+
+===========================================================================
+FINAL SUMMARY:
+
+DUPLICATE ERROR COUNTS:
+
+SUPPRESSIONS USED:
+
+ERRORS FOUND:
+      1 unique,     1 total unaddressable access(es)
+      0 unique,     0 total uninitialized access(es)
+      0 unique,     0 total invalid heap argument(s)
+      0 unique,     0 total GDI usage error(s)
+      0 unique,     0 total handle leak(s)
+      0 unique,     0 total warning(s)
+      0 unique,     0 total,      0 byte(s) of leak(s)
+      0 unique,     0 total,      0 byte(s) of possible leak(s)
+ERRORS IGNORED:
+      2 potential error(s) (suspected false positives)
+         (details: C:\Users\Lenovo\AppData\Roaming\Dr. Memory\DrMemory-invalid_read_sigsegv.exe.3464.000\potential_errors.txt)
+      0 unique,     0 total,      0 byte(s) of still-reachable allocation(s)
+         (re-run with "-show_reachable" for details)
+Details: C:\Users\Lenovo\AppData\Roaming\Dr. Memory\DrMemory-invalid_read_sigsegv.exe.3464.000\results.txt
