@@ -9,19 +9,13 @@ typedef int ValueType;
 
 struct TreeNode
 {
-    TreeNode(ValueType data, TreeNode *left = NULL, TreeNode *right = NULL);
+    TreeNode(ValueType data, TreeNode *left = NULL, TreeNode *right = NULL)
+        : data(data), left(left), right(right) { }
 
     ValueType data;
     TreeNode *left;
     TreeNode *right;
 };
-
-TreeNode::TreeNode(ValueType data, TreeNode *left, TreeNode *right)
-{
-    this->data = data;
-    this->left = left;
-    this->right = right;
-}
 
 typedef TreeNode* NodePtr;
 
@@ -56,45 +50,46 @@ class Set
         int size(NodePtr node);
         bool contains(NodePtr node, ValueType item);
         void insert(NodePtr& node, ValueType item);
+        void clear(NodePtr node);
 };
 
-Set::Set()
-{
+Set::Set() {
     root = NULL;
 }
 
-Set::~Set()
-{
-    //Important!
+Set::~Set() {
+    clear(root);
 }
 
-int Set::size()
-{
+void Set::clear(NodePtr node) {
+    if(node != NULL) {
+        clear(node->left);
+        clear(node->right);
+        delete node;
+    }
+}
+
+int Set::size() {
     return size(root);
 }
 
-int Set::size(NodePtr node)
-{
+int Set::size(NodePtr node) {
     if(node == NULL) {
         return 0;
     }
-    return size(node->left) + size(node->right);
+    return 1 + size(node->left) + size(node->right);
 }
 
-bool Set::empty()
-{
+bool Set::empty() {
     return root == NULL;
 }
 
 
-bool Set::contains(ValueType item)
-
-{
+bool Set::contains(ValueType item) {
     return contains(root, item);
 }
 
-bool Set::contains(NodePtr node, ValueType item)
-{
+bool Set::contains(NodePtr node, ValueType item) {
     if(node == NULL) {
         return false;
     }
@@ -108,31 +103,26 @@ bool Set::contains(NodePtr node, ValueType item)
 
 }
 
-void Set::insert(ValueType item)
-{
+void Set::insert(ValueType item) {
     insert(root, item);
 }
 
-void Set::insert(NodePtr& node, ValueType item)
-{
+void Set::insert(NodePtr& node, ValueType item) {
     if(node == NULL) {
         node = new TreeNode(item);
-        return;
+    } else if(item < node->data) {
+        insert(node->left, item);
+    } else if (item > node->data) {
+        insert(node->right, item);
     }
-    if(item < node->data) {
-        return insert(node->left, item);
-    }
-    return insert(node->right, item);
 }
 
-void Set::remove(ValueType item)
-{
+void Set::remove(ValueType item) {
     //TODO
 }
 
 
-int main()
-{
+int main() {
     srand(1337);
 
     Set s;

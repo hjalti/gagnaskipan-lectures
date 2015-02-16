@@ -8,19 +8,13 @@ using namespace std;
 
 struct TreeNode
 {
-    TreeNode(int data, TreeNode *left = NULL, TreeNode *right = NULL);
+    TreeNode(int data, TreeNode *left = NULL, TreeNode *right = NULL)
+        : data(data), left(left), right(right) { }
 
     int data;
     TreeNode *left;
     TreeNode *right;
 };
-
-TreeNode::TreeNode(int data, TreeNode *left, TreeNode *right)
-{
-    this->data = data;
-    this->left = left;
-    this->right = right;
-}
 
 typedef TreeNode* NodePtr;
 
@@ -62,53 +56,54 @@ class IntSet
 
         int size(NodePtr node);
         int min(NodePtr node);
+        void clear(NodePtr node);
         bool contains(NodePtr node, int item);
         void insert(NodePtr& node, int item);
         void print_inorder(ostream& outs,  NodePtr& node);
         void print_graphviz(NodePtr node);
 };
 
-IntSet::IntSet()
-{
+IntSet::IntSet() {
     root = NULL;
 }
 
-IntSet::~IntSet()
-{
-    //Important!
+IntSet::~IntSet() {
+    clear(root);
 }
 
-int IntSet::size()
-{
+void IntSet::clear(NodePtr node) {
+    if(node != NULL) {
+        clear(node->left);
+        clear(node->right);
+        delete node;
+    }
+}
+
+int IntSet::size() {
     return size(root);
 }
 
-int IntSet::size(NodePtr node)
-{
+int IntSet::size(NodePtr node) {
     if(node == NULL) {
         return 0;
     }
-    return size(node->left) + size(node->right);
+    return 1 + size(node->left) + size(node->right);
 }
 
-bool IntSet::empty()
-{
+bool IntSet::empty() {
     return root == NULL;
 }
 
 
-bool IntSet::contains(int item)
-{
+bool IntSet::contains(int item) {
     return contains(root, item);
 }
 
-int IntSet::min()
-{
+int IntSet::min() {
     return min(root);
 }
 
-int IntSet::min(NodePtr node)
-{
+int IntSet::min(NodePtr node) {
     if(node== NULL) {
         return INT_MIN;
     }
@@ -118,8 +113,7 @@ int IntSet::min(NodePtr node)
     return min(node->left);
 }
 
-bool IntSet::contains(NodePtr node, int item)
-{
+bool IntSet::contains(NodePtr node, int item) {
     if(node == NULL) {
         return false;
     }
@@ -133,31 +127,25 @@ bool IntSet::contains(NodePtr node, int item)
 
 }
 
-void IntSet::insert(int item)
-{
+void IntSet::insert(int item) {
     insert(root, item);
 }
 
-void IntSet::insert(NodePtr& node, int item)
-{
-    if(node == NULL || node->data == item) {
+void IntSet::insert(NodePtr& node, int item) {
+    if(node == NULL) {
         node = new TreeNode(item);
-        return;
-    }
-    if(item < node->data) {
+    } else if(item < node->data) {
         insert(node->left, item);
-    } else {
+    } else if(item > node->data) {
         insert(node->right, item);
     }
 }
 
-void IntSet::remove(int item)
-{
+void IntSet::remove(int item) {
     //TODO
 }
 
-void IntSet::print_inorder(ostream& outs, NodePtr& node)
-{
+void IntSet::print_inorder(ostream& outs, NodePtr& node) {
     if(node != NULL) {
         print_inorder(outs, node->left);
         outs << node->data << " ";
@@ -165,15 +153,13 @@ void IntSet::print_inorder(ostream& outs, NodePtr& node)
     }
 }
 
-void IntSet::print_graphviz()
-{
+void IntSet::print_graphviz() {
     cout << "digraph G {" << endl;
     print_graphviz(root);
     cout << "}" << endl;
 }
 
-void IntSet::print_graphviz(NodePtr node)
-{
+void IntSet::print_graphviz(NodePtr node) {
     if(node != NULL) {
         if(node->left != NULL) {
             cout << node->data << " -> " << node->left->data << ";" << endl;
@@ -186,15 +172,13 @@ void IntSet::print_graphviz(NodePtr node)
     }
 }
 
-ostream& operator<< (ostream& outs, IntSet set)
-{
+ostream& operator<< (ostream& outs, IntSet set) {
     set.print_inorder(outs, set.root);
     return outs;
 }
 
 
-int main()
-{
+int main() {
     srand(1337);
 
     IntSet s;

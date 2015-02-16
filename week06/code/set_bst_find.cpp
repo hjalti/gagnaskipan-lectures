@@ -43,22 +43,16 @@ class IntSet
         // If 'item' is not a member of the set, this operation has no effect.
         void remove(int item);
 
-        // Returns the smallest element of the set.
-        // Returns INT_MIN if set is empty.
-        int min();
-
         friend ostream& operator<< (ostream& outs, const IntSet& set);
 
     private:
         NodePtr root;
 
         int size(NodePtr node);
-        int min(NodePtr node);
-        bool contains(NodePtr node, int item);
-        void insert(NodePtr& node, int item);
+        NodePtr& min(NodePtr& node);
         void clear(NodePtr node);
         void print_inorder(ostream& outs, NodePtr node) const;
-        void remove(NodePtr& node, int item);
+        NodePtr& find(NodePtr& node, int item);
 };
 
 IntSet::IntSet() {
@@ -92,75 +86,51 @@ bool IntSet::empty() {
     return root == NULL;
 }
 
-bool IntSet::contains(int item) {
-    return contains(root, item);
+NodePtr& IntSet::find(NodePtr& node, int item) {
+    if(node == NULL) {
+        return node;
+    } else if(item < node->data) {
+        return find(node->left, item);
+    } else if(item > node->data) {
+        return find(node->right, item);
+    }
+    return node;
 }
 
-bool IntSet::contains(NodePtr node, int item) {
-    if(node == NULL) {
-        return false;
-    }
-    if(node->data == item) {
-        return true;
-    }
-    if(item < node->data) {
-        return contains(node->left, item);
-    }
-    return contains(node->right, item);
-
+bool IntSet::contains(int item) {
+    return find(root, item) != NULL;
 }
 
 void IntSet::insert(int item) {
-    insert(root, item);
-}
-
-void IntSet::insert(NodePtr& node, int item) {
-    if(node == NULL) {
-        node = new TreeNode(item);
-    } else if(item < node->data) {
-        insert(node->left, item);
-    } else if(item > node->data) {
-        insert(node->right, item);
+    NodePtr& ins = find(root, item);
+    if(ins == NULL) {
+        ins = new TreeNode(item);
     }
 }
 
-void IntSet::remove(NodePtr& node, int item) {
-    if(node == NULL) {
+void IntSet::remove(int item) {
+    NodePtr& rem = find(root, item);
+    if(rem == NULL) {
         return;
-    } else if(item < node->data) {
-        remove(node->left, item);
-    } else if(item > node->data) {
-        remove(node->right, item);
     } else {
-        NodePtr to_del = node;
-        if(node->left == NULL) {
-            node = node->right;
-        } else if (node->right == NULL) {
-            node = node->left;
+        NodePtr to_del = rem;
+        if(rem->left == NULL) {
+            rem = rem->right;
+        } else if (rem->right == NULL) {
+            rem = rem->left;
         } else {
-            int new_val = min(node->right);
-            remove(node, new_val);
-            node->data = new_val;
-            return;
+            NodePtr& leftmost = min(rem->right);
+            to_del = leftmost;
+            rem->data = leftmost->data;
+            leftmost = NULL;
         }
         delete to_del;
     }
 }
 
-void IntSet::remove(int item) {
-    remove(root, item);
-}
-
-int IntSet::min() {
-    return min(root);
-}
-
-int IntSet::min(NodePtr node) {
-    if(node== NULL) {
-        return INT_MIN;
-    }
-    if(node->left == NULL) {
-        return node->data;
+NodePtr& IntSet::min(NodePtr& node) {
+    if(node == NULL || node->left == NULL) {
+        return node;
     }
     return min(node->left);
 }
@@ -201,11 +171,7 @@ int main() {
     clock_t start = clock();
 
     for(int i = 0; i != 1000000; i++) {
-        s.insert(rand());
-    }
-
-    for(int i = 0; i != 1000000; i++) {
-        s.remove(rand());
+        s.insert(rand() % 100000);
     }
 
     cout << "Done inserting" << endl;

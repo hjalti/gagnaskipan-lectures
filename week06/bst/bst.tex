@@ -21,12 +21,14 @@
 
 \mode<presentation>
 {
-  \usetheme{CambridgeUS}
-  % or ...
+    % \usetheme{JuanLesPins}
+    \usetheme{CambridgeUS}
+    % or ...
 
-  % \setbeamercovered{transparent}
-  % or whatever (possibly just delete it)
+    % \setbeamercovered{transparent}
+    % or whatever (possibly just delete it)
 }
+
 
 
 \usepackage[icelandic]{babel}
@@ -40,41 +42,58 @@
 \usepackage[T1]{fontenc}
 \usepackage{float}
 \usepackage{amssymb}
-\usepackage[normalem]{ulem}
+\usepackage{cancel}
 \usepackage{booktabs}
-\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{listings}
 
 \newcommand{\perm}{{\mathfrak S}}
 \newcommand{\clpreim}{\texttt{ClassicalPreim}}
 \newcommand{\meshpreim}{\texttt{MeshPreim}}
 \renewcommand{\epsilon}{\varepsilon}
 
-\DeclareMathOperator{\Av}{Av}
 
-\title{Sets and maps}
+\DeclareMathOperator{\Av}{Av}
+\DeclareMathOperator{\nil}{NULL}
+
+\lstset{
+    language=C++,
+    basicstyle = \small    \ttfamily,
+    keywordstyle = \color{blue},
+    stringstyle = \color{red},
+    commentstyle = \color{green},
+    showstringspaces = false,
+    tabsize = 3,
+    numbers = left,
+    frame=single,
+    captionpos=b
+}
+\newcommand{\cpp}{\lstinline}
+
+
+\title{Tvíleitartré}
 \subtitle{Gagnaskipan}
 %{Include Only If Paper Has a Subtitle}
 
 \author[Hjalti]{Hjalti Magnússon (\href{mailto:hjaltim@ru.is}{hjaltim@ru.is})}
 
-%\author[Hjalti \and Henning] {Hjalti Magnússon \and Henning Arnór Úlfarsson}
 % - Give the names in the same order as the appear in the paper.
 % - Use the \inst{?} command only if the authors have different
 %   affiliation.
 
 \institute[Reykjavík University] % (optional, but mostly needed)
 {
-  \includegraphics[height=2cm]{rulogo}
+    \includegraphics[height=2cm]{rulogo}
 }
 
-\date{\today}
+\date{{\today}}
 % - Either use conference name or its abbreviation.
 % - Not really informative to the audience, more for people (including
 %   yourself) who are reading the slides online
 
 %\subject{Computer Science}
 % This is only inserted into the PDF information catalog. Can be left
-% out. 
+% out.
 
 %\pgfdeclareimage[height=1.5cm]{university-logo}{rulogo.PNG}
 %\logo{\pgfuseimage{university-logo}}
@@ -85,49 +104,50 @@
 
 % Delete this, if you do not want the table of contents to pop up at
 % the beginning of each subsection:
-\AtBeginSection[]
-{
-  \begin{frame}<beamer>{Outline}
-    \tableofcontents[currentsection,currentsubsection]
-  \end{frame}
-}
 
-\AtBeginSubsection[]
-{
-  \begin{frame}<beamer>{Yfirlit}
-    \tableofcontents[currentsection,currentsubsection]
-  \end{frame}
-}
 
 \DeclareMathOperator{\id}{id}
+
 
 % If you wish to uncover everything in a step-wise fashion, uncomment
 % the following command:
 
 %\beamerdefaultoverlayspecification{<+->}
 
+
 \begin{document}
 
 \begin{frame}
-  \titlepage
+    \titlepage
 \end{frame}
 
-\begin{frame}{Implementations of set}
-    \begin{table}
-        \centering
-        \begin{tabular}{lccc}
-            \textbf{Method}     & \textbf{Contains}     & \textbf{Insert} & \textbf{Remove} \\
-            Indexed array       & $O(1)$                & $O(1)$          & $O(1)$ \\
-            Unordered vector    & $O(n)$                & $O(1)$          & $O(n)$ \\
-            Unordered list      & $O(n)$                & $O(1)$          & $O(n)$ \\
-            Ordered list        & $O(n)$                & $O(n)$          & $O(n)$ \\
-            Binary search       & $O(\log(n))$          & $O(n)$          & $O(n)$ \\
-            BST (Average)       & $O(\log(n))$          & $O(\log(n))$    & $O(\log(n))$ \\
-            BST (WC)            & $O(n)$                & $O(n)$          & $O(n)$
-        \end{tabular}
-    \end{table}
+\section{Skilgreiningar}
+
+\begin{frame}{Tvíundartré}
+    Hægt er að skilgreina tvíundartré endurkvæmt
+    \begin{block}{Heiltölutvíundartré}
+        \begin{itemize}
+            \item $\Lambda$ er heiltölutvíundartré
+            \item Ef $n$ er heiltala og $T_1$ og $T_2$ eru heiltölutvíundartré, þá er $\langle n, T_1, T_2 \rangle$ heiltölutvíundartré
+            \item Ekkert annað er heiltölutvíundartré
+        \end{itemize}
+    \end{block}
 \end{frame}
 
+\begin{frame}{Tvíleitartré}
+    Hægt er að skilgreina tvíleitartré endurkvæmt
+    \begin{block}{Heiltölutvíleitartré}
+        \begin{itemize}
+            \item $\Lambda$ er heiltölutvíleitartré
+            \item Ef $n$ er heiltala og $T_1$ og $T_2$ eru heiltölutvíundartré, þannig að
+                \begin{itemize}
+                    \item öll stök $T_1$ eru minni en $n$,
+                    \item öll stök $T_2$ eru stærri en $n$,
+                \end{itemize}
+            þá er $\langle n, T_1, T_2 \rangle$ heiltölutvíleitartré
+            \item Ekkert annað er heiltölutvíleitartré
+        \end{itemize}
+    \end{block}
+\end{frame}
 
 \end{document}
-
