@@ -3,10 +3,9 @@
 
 using namespace std;
 
-ALPHABET_SIZE = 26;
+const int ALPHABET_SIZE = 26;
 
-int index_of(char c)
-{
+int index_of(char c) {
     return tolower(c) - 'a';
 }
 
@@ -20,7 +19,7 @@ struct TrieNode
     TrieNode* children[ALPHABET_SIZE];
 };
 
-TrieNode::TrieNode(char key, bool present = false)
+TrieNode::TrieNode(char key, bool present)
 {
     this->key = key;
     this->present = present;
