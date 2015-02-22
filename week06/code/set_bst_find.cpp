@@ -122,7 +122,7 @@ void IntSet::remove(int item) {
             NodePtr& leftmost = min(rem->right);
             to_del = leftmost;
             rem->data = leftmost->data;
-            leftmost = NULL;
+            leftmost = leftmost->right;
         }
         delete to_del;
     }
