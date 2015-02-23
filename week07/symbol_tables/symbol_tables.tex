@@ -138,6 +138,28 @@
     \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]
+    \frametitle{Skil}
+    \begin{lstlisting}
+typedef Data* ValueType;
+typedef int KeyType;
+class Map {
+    int size();
+    // Adds the key to the map associated with the value.
+    void add(KeyType key, ValueType value);
+    // Removes the value associated with the key.
+    void remove(KeyType key);
+    // Retrieves the item associated with the key.
+    ValueType get(KeyType key);
+    // Returns true if and only if the map contains
+    // the key.
+    bool contains(KeyType key);
+};
+
+
+    \end{lstlisting}
+\end{frame}
+
 \begin{frame}{Implementations of symbol table}
     \begin{table}
         \centering
