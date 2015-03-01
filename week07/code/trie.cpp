@@ -11,22 +11,25 @@ int index_of(char c) {
 
 struct TrieNode
 {
-    TrieNode(char key, bool present = false);
+    TrieNode(bool present = false);
+    bool is_leaf();
 
-    char key;
     bool present;
 
     TrieNode* children[ALPHABET_SIZE];
 };
 
-TrieNode::TrieNode(char key, bool present)
-{
-    this->key = key;
+TrieNode::TrieNode(bool present) {
     this->present = present;
 
     for(int i = 0; i < ALPHABET_SIZE; i++) {
         children[i] = NULL;
     }
+}
+
+bool TrieNode::is_leaf() {
+    // TODO
+    return false;
 }
 
 typedef TrieNode* NodePtr;
