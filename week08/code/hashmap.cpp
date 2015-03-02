@@ -8,6 +8,7 @@
 using namespace std;
 
 const int INITIAL_SIZE = 64;
+const double MAX_LOAD = 0.8;
 
 struct Pair
 {
@@ -114,7 +115,7 @@ int StringIntMap::hash_key(string key)
 }
 
 void StringIntMap::load_check() {
-    if(count / static_cast<double>(capacity) > 0.8) {
+    if(count / static_cast<double>(capacity) > MAX_LOAD) {
         rebuild();
     }
 }
