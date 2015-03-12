@@ -114,7 +114,6 @@ void Game::display()
 void Game::update()
 {
 	cout << updatable_items.size() << endl;
-	cout << "!!update" << endl;
 	for(size_t i = 0; i < updatable_items.size(); i++) {
 		updatable_items[i]->update();
 	}

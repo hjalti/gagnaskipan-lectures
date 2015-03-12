@@ -13,6 +13,8 @@ using namespace std;
 class IntSet
 {
     public:
+        virtual ~IntSet() { };
+
         // Returns the number of (distinct) elements in the set.
         virtual int size() = 0;
 
@@ -359,4 +361,5 @@ int main() {
 
     cout << "Done querying" << endl;
     cout << "Time: " << ((clock()- start) / (double) CLOCKS_PER_SEC) << "s" << endl;
+    delete s;
 }
