@@ -23,11 +23,12 @@ Game::~Game()
 
 void Game::init()
 {
-	player = new Actor("Revenant", Position(0.0, 0.0), 100.0, 100.0, false);
-	enemies.push_back(new Actor("Enemy 1", Position(1.0, 3.0), 100.0, 100.0, true));
-	enemies.push_back(new Actor("Enemy 2", Position(8.0, 2.0), 100.0, 100.0, true));
-	enemies.push_back(new Actor("Enemy 3", Position(8.0, 2.0), 100.0, 100.0, true));
-	enemies.push_back(new Actor("Enemy 4", Position(9.0, 1.0), 100.0, 100.0, true));
+	player = new Actor("Revenant", Position(0.0, 0.0), 100.0, 100.0);
+    player->set_update_behavior(new InteractiveActorBehavior(player));
+	enemies.push_back(new Actor("Enemy 1", Position(1.0, 3.0), 100.0, 100.0));
+	enemies.push_back(new Actor("Enemy 2", Position(8.0, 2.0), 100.0, 100.0));
+	enemies.push_back(new Actor("Enemy 3", Position(8.0, 2.0), 100.0, 100.0));
+	enemies.push_back(new Actor("Enemy 4", Position(9.0, 1.0), 100.0, 100.0));
 	treasures.push_back(new	WeaponTreasure("Treasure 1", Position(1.0, 1.0),
 				new Gun("BFG", 100.0, 0.7, 60.0, 500)));
 	treasures.push_back(new	WeaponTreasure("Treasure 2", Position(-1.0, -1.0),

@@ -11,6 +11,11 @@ ActorUpdateBehavior::ActorUpdateBehavior(Actor *actor)
 	this->actor = actor;
 }
 
+void ActorUpdateBehavior::set_actor(Actor *actor)
+{
+    this->actor = actor;
+}
+
 AiActorBehavior::AiActorBehavior(Actor *actor)
 	: ActorUpdateBehavior(actor)
 {

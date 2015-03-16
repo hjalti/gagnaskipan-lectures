@@ -6,7 +6,7 @@
 
 using namespace std;
 
-Actor::Actor(string name, Position pos, double health, double armor, bool ai, double reach)
+Actor::Actor(string name, Position pos, double health, double armor, double reach)
 	: PositionalObject(name, pos)
 {
 	this->health = health;
@@ -14,11 +14,9 @@ Actor::Actor(string name, Position pos, double health, double armor, bool ai, do
 	this->reach = reach;
 	weapons = new WeaponCollection(10);
 	weapons->add(new Weapon("Knife", 1, 1, 30));
-	if(ai) {
-		update_behavior = new AiActorBehavior(this);
-	} else {
-		update_behavior = new InteractiveActorBehavior(this);
-	}
+
+    // Defaults to an AI actor
+    update_behavior = new AiActorBehavior(this);
 }
 
 Actor::~Actor()
@@ -40,7 +38,6 @@ ActionResult Actor::attack(Actor *player)
 		ss << player->get_name() << " is out of range of " << w->get_name() << ".";
 		return ActionResult(false, ss.str());
 	}
-	return ActionResult(false, "");
 }
 
 bool Actor::is_dead()
@@ -77,7 +74,7 @@ void Actor::deal_damage(double damage)
 		armor -= damage;
 		damage = 0;
 	}
-	health -= damage;
+	health = max(0.0, health - damage);
 }
 
 ActionResult Actor::pick_up(Weapon *w)
@@ -116,6 +113,11 @@ void Actor::prev_weapon()
 void Actor::update()
 {
 	update_behavior->update();
+}
+
+void Actor::set_update_behavior(ActorUpdateBehavior* ub) {
+    ub->set_actor(this);
+    update_behavior = ub;
 }
 
 void Actor::display()

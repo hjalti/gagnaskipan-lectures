@@ -18,7 +18,13 @@ WeaponTreasure::WeaponTreasure(string name, Position pos, Weapon* weapon)
 
 ActionResult WeaponTreasure::add_to(Actor* player)
 {
-	return player->pick_up(weapon);
+	ActionResult res = player->pick_up(weapon);
+    weapon = NULL;
+    return res;
+}
+
+WeaponTreasure::~WeaponTreasure() {
+    delete weapon;
 }
 
 void WeaponTreasure::display()

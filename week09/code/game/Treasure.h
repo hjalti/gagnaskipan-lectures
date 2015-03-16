@@ -20,7 +20,7 @@ class WeaponTreasure : public Treasure
 {
 	public:
 		WeaponTreasure(string name, Position pos, Weapon* weapon);
-		virtual ~WeaponTreasure() { }
+		virtual ~WeaponTreasure();
 
 		virtual ActionResult add_to(Actor* player);
 		virtual void display();

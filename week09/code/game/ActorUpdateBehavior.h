@@ -9,9 +9,10 @@ class Actor;
 class ActorUpdateBehavior
 {
 	public:
-		ActorUpdateBehavior(Actor *actor);
+		ActorUpdateBehavior(Actor *actor = NULL);
 		virtual ~ActorUpdateBehavior() { }
 
+        void set_actor(Actor *actor);
 		virtual void update() { }
 
 	protected:
